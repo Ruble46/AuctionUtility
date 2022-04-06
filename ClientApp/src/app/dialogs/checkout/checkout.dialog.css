@@ -1,0 +1,20 @@
+.checkoutAddBottomMargin {
+    height: 10px;
+}
+
+.flexSpacer {
+    flex: 1 1 auto;
+}
+
+.dottedBottomBorder {
+    border-bottom: 1px dotted black;
+}
+
+.lotItemEntry {
+    font-style: italic;
+}
+
+.checkoutSectionTitle {
+    font-weight: 700;
+    font-size: 18px;
+}

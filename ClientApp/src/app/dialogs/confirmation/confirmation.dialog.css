@@ -1,0 +1,7 @@
+.confirmationBiggerBtn {
+    width: calc(50% - 5px);
+}
+
+.confirmationLeftSpaceBtn {
+    margin-left: 10px;
+}

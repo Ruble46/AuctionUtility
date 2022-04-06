@@ -1,0 +1,35 @@
+<form (submit)="verifyNumber(data)" #addBidder="ngForm" name="form">
+    <div mat-dialog-content>
+        <h2 class="dialogTitle" *ngIf="isAdd">Add Bidder</h2>
+        <h2 class="dialogTitle" *ngIf="isEdit">Edit Bidder</h2>
+        <h2 class="dialogTitle" *ngIf="isView">View Bidder</h2>
+        <mat-divider class="addBottomMargin"></mat-divider>
+   
+        <mat-form-field appearance="outline" class="fullWidth">
+            <mat-label>Number</mat-label>
+            <input matInput #autoFocus type="number" placeholder="Number" [(ngModel)]="data.number" id="bidderNumberInput" name="bidderNumberInput" required [disabled]="isView || isEdit">
+        </mat-form-field>
+   
+        <mat-form-field appearance="outline" class="fullWidth">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" placeholder="Name" [(ngModel)]="data.name" id="bidderNameInput" name="bidderNameInput" required [disabled]="isView">
+        </mat-form-field>
+    </div>
+     
+    <mat-divider></mat-divider>
+   
+    <div mat-dialog-actions>
+       <span *ngIf="isEdit || isAdd">
+        <button mat-button color="accent" (mousedown)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!addBidder.form.valid">Save</button>
+      </span>
+
+      <span *ngIf="isView">
+        <button mat-button color="accent" (mousedown)="onNoClick()">Close</button>
+        <button mat-raised-button color="primary" (click)="changeToEdit()">Edit</button>
+      </span>
+
+      <div *ngIf="isView || isEdit" class="flexSpacer"></div>
+      <button *ngIf="isView || isEdit" mat-raised-button color="warn" (mousedown)="onDeleteClick()">Delete</button>
+    </div>
+</form>

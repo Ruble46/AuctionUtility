@@ -1,0 +1,86 @@
+<mat-tab-group>
+    <mat-tab label="Lots">
+        <ng-template matTabContent>
+            <mat-toolbar class="columnHeader" style="height: 56px !important">
+                <span class="columnHeaderText">Lots</span>
+                <button mat-flat-button (click)="addLot()" color="primary">
+                    <span>Add</span>
+                </button>
+            </mat-toolbar>
+    
+            <div class="homeTabContentWrapper">
+                <table mat-table [dataSource]="dataSourceLots" class="biddersTable whiteBackground">
+                    <!-- Lot Number Column -->
+                    <ng-container matColumnDef="lotNumber">
+                        <th mat-header-cell *matHeaderCellDef> Lot Number </th>
+                        <td mat-cell *matCellDef="let lot"> #{{lot.lotNumber}} </td>
+                    </ng-container>
+    
+                    <!-- Items Description Column -->
+                    <ng-container matColumnDef="finalBid">
+                        <th mat-header-cell *matHeaderCellDef> Bid Amount </th>
+                        <td mat-cell *matCellDef="let lot"> {{lot.finalBid | currency}} </td>
+                    </ng-container> 
+    
+                    <!-- Items Description Column -->
+                    <ng-container matColumnDef="buyerNumber">
+                        <th mat-header-cell *matHeaderCellDef> Bidder Number </th>
+                        <td mat-cell *matCellDef="let lot"> <span *ngIf="lot.buyerNumber">#</span>{{lot.buyerNumber}} </td>
+                    </ng-container> 
+    
+                    <!-- Items Description Column -->
+                    <ng-container matColumnDef="itemsCount">
+                        <th mat-header-cell *matHeaderCellDef> Item Count </th>
+                        <td mat-cell *matCellDef="let lot"> {{lot.itemsCount}} </td>
+                    </ng-container>
+
+                    <!-- Actions Description Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> </th>
+                        <td mat-cell *matCellDef="let lot; let i = index">
+                            <button mat-stroked-button color="primary" (click)="viewLot(lot, i)">View</button>
+                        </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true" class="whiteBackground"></tr>
+                    <tr mat-row *matRowDef="let lot; columns: displayedColumns2;"></tr>
+                </table>
+            </div>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Bidders">
+        <mat-toolbar class="columnHeader" style="height: 56px !important">
+            <span class="columnHeaderText">Bidders</span>
+            <button mat-flat-button (click)="addBidder()" color="primary">
+                <span>Add</span>
+            </button>
+        </mat-toolbar>
+
+        <div class="homeTabContentWrapper">
+            <table mat-table [dataSource]="dataSourceBidders" class="biddersTable whiteBackground">
+                <!-- Number Column -->
+                <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef> Bidder Number </th>
+                    <td mat-cell *matCellDef="let bidder"> #{{bidder.number}} </td>
+                </ng-container>  
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Bidder Name </th>
+                    <td mat-cell *matCellDef="let bidder"> {{bidder.name}} </td>
+                </ng-container>
+        
+                <!-- Edit Button Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let bidder; let i = index">
+                        <button mat-stroked-button color="primary" (click)="viewBidder(bidder, i)">View</button>
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="whiteBackground"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </mat-tab>
+</mat-tab-group>

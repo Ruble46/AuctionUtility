@@ -1,0 +1,52 @@
+.loginBackground {
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.loginCard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 450px;
+  min-width: 250px;
+}
+
+.loginLogoToolbar {
+  height: 24px;
+  font-size: 18px;
+  background-color: white;
+  margin-top: 8px !important;
+}
+
+.loginHeaderToolbar {
+  height: 32px;
+  font-size: 24px;
+  background-color: white;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
+.loginElement {
+  width: calc(100% - 32px);
+  margin: 0 16px;
+}
+
+.loginFlexSpace {
+  flex: 1 1 auto;
+}
+
+.loginActionWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.loginRequiredHint {
+  color: #e2ba5b;
+}

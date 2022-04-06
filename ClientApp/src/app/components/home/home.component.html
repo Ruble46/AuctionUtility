@@ -1,0 +1,26 @@
+<mat-toolbar color="primary" style="height: 56px !important">
+    <div class="homeFlexSpacer"></div>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/app/auction">
+          <mat-icon>home</mat-icon>
+          <span>Auction</span>
+        </button>
+        <button mat-menu-item routerLink="/app/checkout">
+          <mat-icon>shopping_cart</mat-icon>
+          <span>Checkout</span>
+        </button>
+        <button mat-menu-item routerLink="/app/tools" *ngIf="isOwner">
+          <mat-icon>build</mat-icon>
+          <span>Tools</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

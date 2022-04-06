@@ -1,0 +1,36 @@
+<div class="loginBackground">
+  <div class="container">
+    <form name="loginForm" (ngSubmit)="onSubmit()" #f="ngForm">
+      <mat-card class="loginCard">
+        <mat-toolbar class="loginLogoToolbar">Bellmont FFA Alumni</mat-toolbar>
+        <mat-toolbar class="loginHeaderToolbar">Sign In</mat-toolbar>
+
+        <mat-card-content>
+          <mat-form-field appearance="standard" class="loginElement">
+            <input matInput #autoFocus placeholder="Email*" type="text" [(ngModel)]="email" name="loginEmail" #loginEmail="ngModel"
+              autocomplete="email" required>
+            <mat-hint class="loginRequiredHint"
+              *ngIf="(loginEmail.dirty || loginEmail.touched) && loginEmail.errors?.required">Email is required
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="loginElement">
+            <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
+            <input matInput placeholder="Password*" [type]="toggle.type" [(ngModel)]="password" name="loginPassword"
+              #loginPassword="ngModel" autocomplete="current-password" required>
+            <mat-hint class="loginRequiredHint"
+              *ngIf="(loginPassword.dirty || loginPassword.touched) && loginPassword.errors?.required">Password is
+              required</mat-hint>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <div class="loginActionWrapper">
+            <span class="loginFlexSpace"></span>
+            <button mat-flat-button color="primary" [disabled]="!f.form.valid" type="submit">Sign In</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

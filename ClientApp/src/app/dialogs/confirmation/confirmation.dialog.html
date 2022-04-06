@@ -1,0 +1,15 @@
+<div>
+    <div mat-dialog-content style="padding-bottom: 10px">
+        <h3>Confirmation</h3>
+
+        <mat-divider style="height: 10px"></mat-divider>
+        <span>{{data}}</span>
+    </div>
+         
+    <mat-divider></mat-divider>
+       
+    <div mat-dialog-actions>
+        <button mat-button color="accent" class="confirmationBiggerBtn" (click)="onNoClick()">No</button>
+        <button mat-flat-button color="primary" class="confirmationLeftSpaceBtn confirmationBiggerBtn" cdkFocusInitial (click)="onYesClick()">Yes</button>
+    </div>
+</div>
