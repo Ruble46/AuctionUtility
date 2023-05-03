@@ -2,11 +2,9 @@ namespace AuctionUtility
 {
     public class Lot
     {
-        public int lotNumber { get; set; }
+        public int lotNumber { get; set; } = 0;
 
-        public string[] items { get; set; }
-
-        public int itemsCount { get; set; }
+        public string[] items { get; set; } = new string[0];
 
         public double? finalBid { get; set; }
 

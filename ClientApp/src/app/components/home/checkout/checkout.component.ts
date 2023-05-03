@@ -69,7 +69,6 @@ export class CheckoutComponent implements OnInit {
           tempCheckout.bidder = this.bidders[a];
           tempCheckout.lots.push(this.lots[b]);
           tempCheckout.total += this.lots[b].finalBid;
-          tempCheckout.totalItems += this.lots[b].itemsCount;
         }
       }
       if(tempCheckout.lots.length > 0) {

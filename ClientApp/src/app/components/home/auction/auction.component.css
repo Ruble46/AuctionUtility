@@ -85,3 +85,15 @@ tr.expandableRowToggle {
 .example-element-detail {
     overflow: hidden;
 }
+
+.itemsCell {
+    padding: 8px 0 !important;
+}
+
+td {
+    min-width: 75px;
+}
+
+.editColumn {
+    width: 100px;
+}

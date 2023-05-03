@@ -33,4 +33,13 @@ export class LoginComponent implements OnInit {
       console.error(error);
     });
   }
+
+  register() {
+    this.sessionService.Register(new User(this.email, this.password)).subscribe(result => {
+      this.router.navigateByUrl("app");
+    }, error => {
+      this.sbh.openSnackBar(error.error, "Dismiss", 3000);
+      console.error(error);
+    });
+  }
 }

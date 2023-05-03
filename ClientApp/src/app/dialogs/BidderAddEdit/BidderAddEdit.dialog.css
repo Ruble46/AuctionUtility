@@ -1,0 +1,22 @@
+.fullWidth {
+    width: 100% !important;
+}
+
+.dialogTitle {
+    margin: 0 0 10px 0;
+    color: rgb(73, 73, 73);
+}
+
+.addBottomMargin {
+    height: 10px;
+}
+
+.flexSpacer {
+    flex: 1 1 auto;
+}
+
+.dialogHeaderToolbar {
+    padding: 0 !important;
+    background-color: white;
+    display: flex;
+}

@@ -3,14 +3,24 @@
 }
 
 .dialogTitle {
-    margin: 0 0 10px 0;
     color: rgb(73, 73, 73);
+    font-size: 24px;
 }
 
 .addBottomMargin {
     height: 10px;
 }
 
+.addMarginTop {
+    margin-top: 16px;
+}
+
 .flexSpacer {
     flex: 1 1 auto;
+}
+
+.dialogHeaderToolbar {
+    padding: 0 !important;
+    background-color: white;
+    display: flex;
 }

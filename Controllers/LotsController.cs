@@ -57,7 +57,7 @@ namespace AuctionUtility.Controllers
         public ActionResult GetSingle(int lotNumber)
         {
             try {
-                Lot lot = this._db.Lots.Find(lotNumber);
+                Lot? lot = this._db.Lots.Find(lotNumber);
                 return StatusCode(200, lot);
             }
             catch (Exception ex) {
@@ -83,11 +83,15 @@ namespace AuctionUtility.Controllers
         public ActionResult DeleteSingle(int lotNumber)
         {
             try {
-                Lot lot = this._db.Lots.Find(lotNumber);
+                Lot? lot = this._db.Lots.Find(lotNumber);
+
+                if(lot == null) {
+                    return StatusCode(404, "Could not find a lot with the number " + lotNumber);
+                }
 
                 this._db.Lots.Remove(lot);
                 this._db.SaveChanges();
-                return StatusCode(200, "Lot " + lot.lotNumber + " removed");
+                return StatusCode(200, "Lot " + lot.lotNumber + " removed successfully");
             }
             catch (Exception ex) {
                 return StatusCode(500, ex.Message);

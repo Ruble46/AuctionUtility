@@ -34,7 +34,6 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
             b.Property(e => e.items).HasConversion(
                 v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<string[]>(v));
-            b.Property(e => e.itemsCount);
             b.Property(e => e.finalBid);
             b.Property(e => e.buyerNumber);
             b.ToTable("Lots");

@@ -10,11 +10,11 @@ export class Bidder {
 
 export class Lot {
     constructor() {
+        this.items = new Array<string>();
     }
 
     lotNumber: number;
     items: Array<string>;
-    itemsCount: number;
     finalBid: number;
     buyerNumber: number;  
 }
@@ -23,7 +23,6 @@ export class Checkout {
     constructor() {
         this.lots = new Array<Lot>();
         this.total = 0;
-        this.totalItems = 0;
     }
 
     bidder: Bidder;
@@ -55,7 +54,6 @@ export class BidderDialogData {
 export class DialogMode {
     public static readonly add: string = "add";
     public static readonly edit: string = "edit";
-    public static readonly view: string = "view"
 }
 
 export class User {

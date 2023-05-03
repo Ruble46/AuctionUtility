@@ -1,0 +1,45 @@
+<form (submit)="submitData()" #addLot="ngForm" name="form">
+	<mat-toolbar class="dialogHeaderToolbar">
+		<span class="dialogTitle" *ngIf="isAdd">Add Lot</span>
+		<span class="dialogTitle" *ngIf="isEdit">Edit Lot</span>
+
+		<span *ngIf="isEdit" class="flexSpacer"></span>
+		<button *ngIf="isEdit" mat-mini-fab color="warn" (mousedown)="onDeleteClick()">
+			<mat-icon>delete</mat-icon>
+		</button>
+	</mat-toolbar>
+    <div mat-dialog-content>
+		<mat-divider class="addBottomMargin"></mat-divider>
+
+		<!-- Lot Number -->
+		<mat-form-field appearance="outline" class="fullWidth addMarginTop">
+			<mat-label>Lot Number</mat-label>
+			<input matInput type="number" placeholder="Lot Number" [(ngModel)]="data.lotNumber" name="lotNumberInput" [disabled]="isEdit">
+		</mat-form-field>
+
+		<mat-form-field appearance="fill" class="fullWidth">
+			<mat-label>Items</mat-label>
+			<mat-chip-list #chipList aria-label="Item selection">
+				<mat-chip *ngFor="let item of data.items" (removed)="removeItem(item)">
+					{{item}}
+					<button matChipRemove>
+						<mat-icon>cancel</mat-icon>
+					</button>
+				</mat-chip>
+				<input placeholder="New item..."
+						[matChipInputFor]="chipList"
+						[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						[matChipInputAddOnBlur]="addOnBlur"
+						(matChipInputTokenEnd)="addItem($event)"
+						#autoFocus>
+			</mat-chip-list>
+		  </mat-form-field>
+    </div>
+    
+    <mat-divider></mat-divider>
+  
+    <div mat-dialog-actions>
+		<button mat-button color="accent" (mousedown)="onNoClick()">Cancel</button>
+		<button mat-raised-button color="primary" type="submit" [disabled]="this.data.items.length == 0">Save</button>
+    </div>
+  </form>

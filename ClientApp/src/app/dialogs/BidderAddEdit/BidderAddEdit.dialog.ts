@@ -6,33 +6,26 @@ import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
 import { BiddersService } from 'src/app/services/biddersService';
 
 @Component({
-    selector: 'BidderAddEditView',
-    templateUrl: 'BidderAddEditView.dialog.html',
-    styleUrls: ['BidderAddEditView.dialog.css']
+    selector: 'BidderAddEdit',
+    templateUrl: 'BidderAddEdit.dialog.html',
+    styleUrls: ['BidderAddEdit.dialog.css']
   })
-  export class BidderAddEditViewDialog {
+  export class BidderAddEditDialog {
   
     @ViewChild('autoFocus', {static: false}) private nameInput: ElementRef;
     public isAdd: boolean = false;
     public isEdit: boolean = false;
-    public isView: boolean = false;
     public data: Bidder;
   
-    constructor(public dialogRef: MatDialogRef<BidderAddEditViewDialog>, @Inject(MAT_DIALOG_DATA) public dataIncoming: BidderDialogData, public sbh: SnackBarHelper, private dialog: MatDialog, public biddersService: BiddersService) {
+    constructor(public dialogRef: MatDialogRef<BidderAddEditDialog>, @Inject(MAT_DIALOG_DATA) public dataIncoming: BidderDialogData, public sbh: SnackBarHelper, private dialog: MatDialog, public biddersService: BiddersService) {
       this.data = JSON.parse(JSON.stringify(dataIncoming.data));
 
       if(this.dataIncoming.mode == DialogMode.edit) {
         this.isAdd = false;
         this.isEdit = true;
-        this.isView = false;
       } else if(this.dataIncoming.mode == DialogMode.add) {
         this.isAdd = true;
         this.isEdit = false;
-        this.isView = false;
-      } else if(this.dataIncoming.mode == DialogMode.view) {
-        this.isAdd = false;
-        this.isEdit = false;
-        this.isView = true;
       }
     }
   
@@ -64,13 +57,6 @@ import { BiddersService } from 'src/app/services/biddersService';
           console.error(error);
         });
       }
-    }
-
-    //Button in view mode to switch to edit mode
-    changeToEdit() {
-      this.isAdd = false;
-      this.isEdit = true;
-      this.isView = false;
     }
 
     onDeleteClick() {

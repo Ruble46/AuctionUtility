@@ -57,7 +57,7 @@ namespace AuctionUtility.Controllers
         public ActionResult GetSingle(int bidderNumber)
         {
             try {
-                Bidder bidder = this._db.Bidders.Find(bidderNumber);
+                Bidder? bidder = this._db.Bidders.Find(bidderNumber);
                 return StatusCode(200, bidder);
             }
             catch (Exception ex) {
@@ -83,11 +83,15 @@ namespace AuctionUtility.Controllers
         public ActionResult DeleteSingle(int bidderNumber)
         {
             try {
-                Bidder bidder = this._db.Bidders.Find(bidderNumber);
+                Bidder? bidder = this._db.Bidders.Find(bidderNumber);
+
+                if(bidder == null) {
+                    return StatusCode(404, "Could not find a bidder with the number " + bidderNumber);
+                }
 
                 this._db.Bidders.Remove(bidder);
                 this._db.SaveChanges();
-                return StatusCode(200, "User " + bidder.name + " removed");
+                return StatusCode(200, "Bidder " + bidder.name + " removed successfully");
             }
             catch (Exception ex) {
                 return StatusCode(500, ex.Message);

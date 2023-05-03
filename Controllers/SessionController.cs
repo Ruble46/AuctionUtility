@@ -86,7 +86,12 @@ namespace AuctionUtility.Controllers
         {
             try 
             {
-                string currentUserEmail = HttpContext.Session.GetString("currentUser");
+                string? currentUserEmail = HttpContext.Session.GetString("currentUser");
+
+                if(String.IsNullOrEmpty(currentUserEmail)) {
+                    return StatusCode(400, "Please sign in to use the app");
+                }
+
                 AppUser appUser = await _userManager.FindByEmailAsync(currentUserEmail);
 
                 if (appUser != null) {
@@ -94,7 +99,7 @@ namespace AuctionUtility.Controllers
                 } 
                 else 
                 {
-                    return StatusCode(404, "Please sign in to use the app"); 
+                    return StatusCode(400, "Please sign in to use the app"); 
                 }
             }
             catch (Exception ex) 

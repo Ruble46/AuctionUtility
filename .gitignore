@@ -237,3 +237,7 @@ db.sqlite
 TODO.txt
 
 ClientApp/.angular/
+
+db.sqlite-shm
+
+db.sqlite-wal

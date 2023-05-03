@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { SnackBarHelper } from 'src/app/helpers/snackBar';
 import { SessionService } from 'src/app/services/sessionService';
 
@@ -11,9 +11,11 @@ import { SessionService } from 'src/app/services/sessionService';
 
 export class HomeComponent implements OnInit {
   public isOwner: boolean;
+  public routeTitle: string;
 
   constructor(public sessionService: SessionService, public router: Router, public sbh: SnackBarHelper) {
     this.isOwner = false;
+    this.routeTitle = "Auction";
   }
 
   ngOnInit() {
@@ -25,6 +27,24 @@ export class HomeComponent implements OnInit {
       this.sbh.openSnackBar("Your session has expired. Please sign back in", "Dismiss", 4000);
       this.router.navigateByUrl("/login");
     });
+
+    this.router.events.subscribe(event => {
+      if(event instanceof NavigationEnd) {
+        this.setTitleByUrl(event.url);
+      }
+    });
+
+    this.setTitleByUrl(this.router.url);
+  }
+
+  setTitleByUrl(url: string) {
+    if(url.indexOf("auction") != -1) {
+      this.routeTitle = "Auction";
+    } else if(url.indexOf("checkout") != -1) {
+      this.routeTitle = "Checkout";
+    } else if(url.indexOf("tools") != -1) {
+      this.routeTitle = "Tools";
+    }
   }
 
   logout() {

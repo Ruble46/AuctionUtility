@@ -1,42 +1,40 @@
-<mat-toolbar>
-    Checkout
-</mat-toolbar>
-
-<table mat-table [dataSource]="dataSource" class="checkoutTable">
-    <!-- Buyer Number Column -->
-    <ng-container matColumnDef="buyerNumber">
-      <th mat-header-cell *matHeaderCellDef> Bidder Number </th>
-      <td mat-cell *matCellDef="let checkout"> #{{checkout.bidder.number}} </td>
-    </ng-container>
-  
-    <!-- Lots Column -->
-    <ng-container matColumnDef="buyerName">
-      <th mat-header-cell *matHeaderCellDef> Buyer Name </th>
-      <td mat-cell *matCellDef="let checkout"> {{checkout.bidder.name}} </td>
-    </ng-container>
-  
-    <!-- Total Items Column -->
-    <ng-container matColumnDef="totalItems">
-      <th mat-header-cell *matHeaderCellDef> Total Items </th>
-      <td mat-cell *matCellDef="let checkout"> {{checkout.totalItems}} </td>
-    </ng-container>
-  
-    <!-- Total Column -->
-    <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef> Total </th>
-      <td mat-cell *matCellDef="let checkout"> {{checkout.total | currency}} </td>
-    </ng-container>
-
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let checkout">
-            <button mat-raised-button color="primary" (click)="checkoutBidder(checkout)" *ngIf="!checkout.bidder.hasPaid">Checkout</button>
-            <button mat-stroked-button color="warn" (click)="undoCheckout(checkout)" *ngIf="checkout.bidder.hasPaid">Undo?</button>
-        </td>
-      </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+<div class="checkoutWraper">
+    <table mat-table [dataSource]="dataSource" class="checkoutTable">
+        <!-- Buyer Number Column -->
+        <ng-container matColumnDef="buyerNumber">
+          <th mat-header-cell *matHeaderCellDef> Bidder Number </th>
+          <td mat-cell *matCellDef="let checkout"> #{{checkout.bidder.number}} </td>
+        </ng-container>
+      
+        <!-- Lots Column -->
+        <ng-container matColumnDef="buyerName">
+          <th mat-header-cell *matHeaderCellDef> Buyer Name </th>
+          <td mat-cell *matCellDef="let checkout"> {{checkout.bidder.name}} </td>
+        </ng-container>
+      
+        <!-- Total Items Column -->
+        <ng-container matColumnDef="totalItems">
+          <th mat-header-cell *matHeaderCellDef> Total Items </th>
+          <td mat-cell *matCellDef="let checkout"> {{checkout.totalItems}} </td>
+        </ng-container>
+      
+        <!-- Total Column -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef> Total </th>
+          <td mat-cell *matCellDef="let checkout"> {{checkout.total | currency}} </td>
+        </ng-container>
+    
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let checkout">
+                <button mat-raised-button color="primary" (click)="checkoutBidder(checkout)" *ngIf="!checkout.bidder.hasPaid">Checkout</button>
+                <button mat-stroked-button color="warn" (click)="undoCheckout(checkout)" *ngIf="checkout.bidder.hasPaid">Undo?</button>
+            </td>
+          </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+</div>
   

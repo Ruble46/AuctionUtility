@@ -16,8 +16,9 @@ import { CheckoutComponent } from './components/home/checkout/checkout.component
 import { ToolsComponent } from './components/home/tools/tools.component';
 
 //========================= Dailogs =========================
-import { BidderAddEditViewDialog } from './dialogs/BidderAddEditView/BidderAddEditView.dialog';
-import { LotAddEditViewDialog } from './dialogs/LotAddEditView/LotAddEditView.dialog';
+import { BidderAddEditDialog } from './dialogs/BidderAddEdit/BidderAddEdit.dialog';
+import { LotAddEditDialog } from './dialogs/lotAddEdit/lotAddEdit.dialog';
+import { LotFinalizeDialog } from './dialogs/lotFinalize/lotFinalize.dialog';
 import { CheckoutDialog } from './dialogs/checkout/checkout.dialog';
 import { ConfirmationDialog } from './dialogs/confirmation/confirmation.dialog';
 
@@ -69,8 +70,9 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     HomeComponent,
     AuctionComponent,
     CheckoutComponent,ToolsComponent,
-    BidderAddEditViewDialog,
-    LotAddEditViewDialog,
+    BidderAddEditDialog,
+    LotAddEditDialog,
+    LotFinalizeDialog,
     CheckoutDialog,
     ConfirmationDialog,
   ],
@@ -127,8 +129,9 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
   ],
   providers: [cookies, Guid, ScreenSize, SnackBarHelper, SessionService, BiddersService, LotsService],
   entryComponents: [
-    BidderAddEditViewDialog,
-    LotAddEditViewDialog,
+    BidderAddEditDialog,
+    LotAddEditDialog,
+    LotFinalizeDialog,
     CheckoutDialog,
     ConfirmationDialog,
   ],

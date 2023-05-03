@@ -1,0 +1,32 @@
+<form (submit)="verifyNumber(data)" #addBidder="ngForm" name="form">
+  <mat-toolbar class="dialogHeaderToolbar">
+		<span class="dialogTitle" *ngIf="isAdd">Add Bidder</span>
+		<span class="dialogTitle" *ngIf="isEdit">Edit Bidder</span>
+
+		<span *ngIf="isEdit" class="flexSpacer"></span>
+		<button *ngIf="isEdit" mat-mini-fab color="warn" (mousedown)="onDeleteClick()">
+			<mat-icon>delete</mat-icon>
+		</button>
+	</mat-toolbar>
+
+    <div mat-dialog-content>
+        <mat-divider class="addBottomMargin"></mat-divider>
+   
+        <mat-form-field appearance="outline" class="fullWidth">
+            <mat-label>Number</mat-label>
+            <input matInput type="number" placeholder="Number" [(ngModel)]="data.number" id="bidderNumberInput" name="bidderNumberInput" required [disabled]="isEdit">
+        </mat-form-field>
+   
+        <mat-form-field appearance="outline" class="fullWidth">
+            <mat-label>Name</mat-label>
+            <input matInput #autoFocus type="text" placeholder="Name" [(ngModel)]="data.name" id="bidderNameInput" name="bidderNameInput" required>
+        </mat-form-field>
+    </div>
+     
+    <mat-divider></mat-divider>
+   
+    <div mat-dialog-actions>
+        <button mat-button color="accent" (mousedown)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!addBidder.form.valid">Save</button>
+    </div>
+</form>
