@@ -1,22 +1,18 @@
 <div>
-    <h2>Checkout</h2>
+    <h3>{{checkout.bidder.name}} ({{checkout.bidder.number}})</h3>
 
     <mat-divider></mat-divider>
     
     <div mat-dialog-content>
-        <div style="margin-bottom: 8px">
-            <div class="checkoutSectionTitle">Bidder Information</div>
-            <div>Name: {{checkout.bidder.name}}</div>
-            <div>Number: {{checkout.bidder.number}}</div>
-        </div>
-
         <div>
             <div class="checkoutSectionTitle">Lots Information</div>
             <div *ngFor="let lot of checkout.lots">
                 <div style="font-weight: 500">Lot #{{lot.lotNumber}}</div>
+
                 <div *ngFor="let item of lot.items">
                     <span class="lotItemEntry">-{{item}}</span>
                 </div>
+
                 <div style="display: flex; margin-bottom: 16px">
                     <span><strong>Total</strong></span>
                     <span class="flexSpacer dottedBottomBorder"></span>

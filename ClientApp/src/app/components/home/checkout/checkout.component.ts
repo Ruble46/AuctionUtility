@@ -22,6 +22,7 @@ export class CheckoutComponent implements OnInit {
   displayedColumns: string[] = ['buyerNumber', 'buyerName', 'totalItems', 'total', 'actions'];
   dataSource: MatTableDataSource<Checkout>;
   grandTotal: number = 0;
+  biddersWithNoLots: Bidder[] = [];
 
   constructor(public dialog: MatDialog, public biddersService: BiddersService, public lotsService: LotsService, public sbh: SnackBarHelper) {
     
@@ -52,6 +53,7 @@ export class CheckoutComponent implements OnInit {
 
   InitializeCheckouts() {
     this.checkouts = new Array<Checkout>();
+    this.biddersWithNoLots = [];
 
     for(let a = 0; a < this.bidders.length; a++) {
       let tempCheckout: Checkout = {
@@ -70,10 +72,15 @@ export class CheckoutComponent implements OnInit {
           tempCheckout.bidder = this.bidders[a];
           tempCheckout.lots.push(this.lots[b]);
           tempCheckout.total += this.lots[b].finalBid;
+          tempCheckout.totalItems += this.lots[b].items.length;
         }
       }
+
+      //Check if the buyer won any lots
       if(tempCheckout.lots.length > 0) {
         this.checkouts.push(tempCheckout);
+      } else {
+        this.biddersWithNoLots.push(this.bidders[a]);
       }
     }
 
@@ -90,7 +97,8 @@ export class CheckoutComponent implements OnInit {
       position: {
         top: '10vh'
       },
-      width: '400px'
+      minWidth: '450px',
+      maxWidth: '500px'
     });
   
     dialogRef.afterClosed().subscribe(result => {

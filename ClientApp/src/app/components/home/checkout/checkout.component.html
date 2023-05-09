@@ -1,5 +1,24 @@
 <div class="checkoutWraper">
-    <div>{{grandTotal | currency}}</div>
+    <mat-list class="checkoutInfoPanel" dense>
+        <mat-list-item>
+            <mat-icon mat-list-icon>attach_money</mat-icon>
+            <div mat-line>Grand Total</div>
+            <div mat-line>{{grandTotal | currency}}</div>
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+            <mat-icon mat-list-icon>person</mat-icon>
+            <div mat-line>Bidders with no lots</div>
+            <div mat-line>
+                <mat-chip-list aria-label="Item selection" [selectable]="false">
+                    <mat-chip *ngFor="let bidder of biddersWithNoLots" disableRipple>{{bidder.name}} ({{bidder.number}})</mat-chip>
+                </mat-chip-list>
+            </div>
+        </mat-list-item>
+    </mat-list>
+
     <table mat-table [dataSource]="dataSource" class="checkoutTable">
         <!-- Buyer Number Column -->
         <ng-container matColumnDef="buyerNumber">

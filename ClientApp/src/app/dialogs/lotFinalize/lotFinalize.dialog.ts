@@ -1,10 +1,10 @@
 import { Lot, Bidder } from '../../classes/classes';
 import { Component, Inject, ViewChild, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SnackBarHelper } from '../../helpers/snackBar';
-import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
 import { LotsService } from 'src/app/services/lotsService';
 import { BiddersService } from 'src/app/services/biddersService';
+import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
 
 @Component({
     selector: 'lotFinalize',
@@ -14,27 +14,26 @@ import { BiddersService } from 'src/app/services/biddersService';
 export class LotFinalizeDialog implements OnInit, AfterViewInit {
 
     @ViewChild('autoFocus', {static: false}) private autoFocus: ElementRef;
-    public bidderNumbers: Array<number>;
     public data: Lot;
+    private bidders: Array<Bidder>;
+    public bidderName: string;
 
     constructor(public dialogRef: MatDialogRef<LotFinalizeDialog>, 
             @Inject(MAT_DIALOG_DATA) public dataIncoming: Lot, 
             public sbh: SnackBarHelper, 
-            private dialog: MatDialog, 
             public lotsService: LotsService, 
-            public biddersService: BiddersService) {
+            public biddersService: BiddersService,
+            private dialog: MatDialog, ) {
 
         this.data = JSON.parse(JSON.stringify(dataIncoming));
-        this.bidderNumbers = new Array<number>();
+        this.bidders = new Array<Bidder>();
+        this.bidderName = "";
     }
 
     ngOnInit() {
         this.biddersService.GetAll().subscribe(result => {
-            let bidders: Array<Bidder> = result.body;
-
-            for(let a = 0; a < bidders.length; a++) {
-                this.bidderNumbers.push(bidders[a].number);
-            }
+            this.bidders = result.body;
+            this.buyerNumberChanged();
         }, error => {
             this.sbh.openSnackBar("Failed to retrieve all bidder numbers from the server", "Dismiss", 3000);
             console.error(error);
@@ -55,6 +54,15 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
 
     //Form submission function
     submitData() {
+        let result = this.bidders.find(bidder => {
+            return bidder.number == this.data.buyerNumber;
+        });
+
+        if(result == null || result == undefined) {
+            this.sbh.openSnackBar("Invalid bidder number.", "Dismiss", 3000);
+            return;
+        }
+
         this.lotsService.Edit(this.data).subscribe(result => {
             this.sbh.openSnackBar(result.body, "Dismiss", 3000);
             this.dialogRef.close("edit");
@@ -64,12 +72,32 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
         });
     }
 
-    //Custom comparison for data objects
-    compareObjects(bidderNumber1: number, bidderNumber2: number) {
-        if(Number(bidderNumber1) === Number(bidderNumber2)) {
-            return true;
-        } else {
-            return false;
-        }
+    buyerNumberChanged() {
+        let result = this.bidders.find(bidder => {
+            return bidder.number == this.data.buyerNumber;
+        });
+
+        (result == undefined || result == null) ? this.bidderName = "" : this.bidderName = result.name;
+    }
+
+    clearData() {
+        const dialogRef = this.dialog.open(ConfirmationDialog, {
+            data: "Are you sure you want to clear this data?"
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if(result !== undefined) {
+                this.data.buyerNumber = undefined;
+                this.data.finalBid = undefined;
+                
+                this.lotsService.Edit(this.data).subscribe(result => {
+                    this.sbh.openSnackBar(result.body, "Dismiss", 3000);
+                    this.dialogRef.close("edit");
+                }, error => {
+                    this.sbh.openSnackBar("Failed to clear data", "Dismiss", 3000);
+                    console.error(error);
+                });
+            }
+        });
     }
 }

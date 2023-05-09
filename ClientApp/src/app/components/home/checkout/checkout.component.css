@@ -40,6 +40,11 @@
 }
 
 .checkoutWraper {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 56px);
     overflow: auto;
+}
+
+.checkoutInfoPanel {
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
