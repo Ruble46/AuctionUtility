@@ -7,6 +7,7 @@ import { LotsService } from 'src/app/services/lotsService';
 import { BiddersService } from 'src/app/services/biddersService';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, TAB } from '@angular/cdk/keycodes';
+import { Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
     selector: 'lotAddEdit',
@@ -28,7 +29,8 @@ export class LotAddEditDialog implements OnInit {
             public sbh: SnackBarHelper, 
             private dialog: MatDialog, 
             public lotsService: LotsService, 
-            public biddersService: BiddersService) {
+            public biddersService: BiddersService,
+            private clipboard: Clipboard) {
 
         this.data = JSON.parse(JSON.stringify(dataIncoming.data));
         this.bidderNumbers = new Array<number>();
@@ -133,5 +135,10 @@ export class LotAddEditDialog implements OnInit {
         if (index >= 0) {
             this.data.items.splice(index, 1);
         }
+    }
+
+    copyToClipboard(item: string) {
+        this.clipboard.copy(item);
+        this.sbh.openSnackBar("Copied " + item + " to the clipboard.", "Dismiss", 2000);
     }
 }

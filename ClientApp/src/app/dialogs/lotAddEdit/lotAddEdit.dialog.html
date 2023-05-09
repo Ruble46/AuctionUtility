@@ -18,9 +18,9 @@
 		</mat-form-field>
 
 		<mat-form-field appearance="fill" class="fullWidth">
-			<mat-label>Items</mat-label>
+			<mat-label>Items ({{data.items.length}})</mat-label>
 			<mat-chip-list #chipList aria-label="Item selection">
-				<mat-chip *ngFor="let item of data.items" (removed)="removeItem(item)">
+				<mat-chip *ngFor="let item of data.items" (removed)="removeItem(item)" (click)="copyToClipboard(item)">
 					{{item}}
 					<button matChipRemove>
 						<mat-icon>cancel</mat-icon>

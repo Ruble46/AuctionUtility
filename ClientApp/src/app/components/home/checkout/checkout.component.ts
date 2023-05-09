@@ -21,6 +21,7 @@ export class CheckoutComponent implements OnInit {
   checkouts: Checkout[];
   displayedColumns: string[] = ['buyerNumber', 'buyerName', 'totalItems', 'total', 'actions'];
   dataSource: MatTableDataSource<Checkout>;
+  grandTotal: number = 0;
 
   constructor(public dialog: MatDialog, public biddersService: BiddersService, public lotsService: LotsService, public sbh: SnackBarHelper) {
     
@@ -74,6 +75,10 @@ export class CheckoutComponent implements OnInit {
       if(tempCheckout.lots.length > 0) {
         this.checkouts.push(tempCheckout);
       }
+    }
+
+    for(let q = 0; q < this.checkouts.length; q++) {
+        this.grandTotal += this.checkouts[q].total;
     }
 
     this.dataSource = new MatTableDataSource(this.checkouts);

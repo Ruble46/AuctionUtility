@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { BidderAddEditDialog } from '../../../dialogs/BidderAddEdit/BidderAddEdit.dialog';
@@ -25,6 +25,7 @@ import { LotFinalizeDialog } from 'src/app/dialogs/lotFinalize/lotFinalize.dialo
 })
 
 export class AuctionComponent implements OnInit {
+    @ViewChild('scrollToMeLots') public myScrollLotsTable: ElementRef;
     bidders: Array<Bidder>;
     lots: Array<Lot>;
     dataSourceBidders: any;
@@ -204,6 +205,9 @@ export class AuctionComponent implements OnInit {
                 this.lotsService.GetAll().subscribe(result => {
                     this.lots = result.body;
                     this.dataSourceLots = new MatTableDataSource(this.lots);
+                    setTimeout(() => {
+                        this.scrollToLotBottom();
+                    }, 200);
                 }, error => {
                     this.lots = new Array();
                     this.dataSourceLots = new MatTableDataSource(this.lots);
@@ -262,5 +266,13 @@ export class AuctionComponent implements OnInit {
                 });
             }
         });
+    }
+
+    scrollToLotBottom() {
+        try {
+            this.myScrollLotsTable.nativeElement.scrollTop = this.myScrollLotsTable.nativeElement.scrollHeight;
+        } catch(err) {
+            console.error(err);
+        }
     }
 }

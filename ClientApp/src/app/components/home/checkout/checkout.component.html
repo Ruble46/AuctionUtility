@@ -1,4 +1,5 @@
 <div class="checkoutWraper">
+    <div>{{grandTotal | currency}}</div>
     <table mat-table [dataSource]="dataSource" class="checkoutTable">
         <!-- Buyer Number Column -->
         <ng-container matColumnDef="buyerNumber">

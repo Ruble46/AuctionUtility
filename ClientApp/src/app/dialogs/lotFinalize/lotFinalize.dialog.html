@@ -4,11 +4,6 @@
 	</mat-toolbar>
     <div mat-dialog-content>
 		<mat-divider class="addBottomMargin"></mat-divider>
-		<!-- Final Price -->
-		<mat-form-field appearance="outline" class="fullWidth addMarginTop">
-            <mat-label>Final Bid</mat-label>
-            <input matInput #autoFocus type="number" min="0.01" step="0.01" placeholder="Final Bid" [(ngModel)]="data.finalBid" [ngModelOptions]="{standalone: true}">
-		</mat-form-field>
 
 		<!-- Bidder Number -->
 		<mat-form-field class="fullWidth">
@@ -17,6 +12,12 @@
 				<mat-option>None</mat-option>
 				<mat-option *ngFor="let num of bidderNumbers" value={{num}}>{{num}}</mat-option>
 			</mat-select>
+		</mat-form-field>
+        
+		<!-- Final Price -->
+		<mat-form-field appearance="outline" class="fullWidth addMarginTop">
+            <mat-label>Final Bid</mat-label>
+            <input matInput #autoFocus type="number" min="0.01" step="0.01" placeholder="Final Bid" [(ngModel)]="data.finalBid" [ngModelOptions]="{standalone: true}">
 		</mat-form-field>
     </div>
     
