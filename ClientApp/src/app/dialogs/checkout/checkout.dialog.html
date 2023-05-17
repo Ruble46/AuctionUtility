@@ -6,19 +6,24 @@
     <div mat-dialog-content>
         <div>
             <div class="checkoutSectionTitle">Lots Information</div>
-            <div *ngFor="let lot of checkout.lots">
-                <div style="font-weight: 500">Lot #{{lot.lotNumber}}</div>
+            <mat-checkbox [(ngModel)]="expandAll" color="primary">Expand all</mat-checkbox>
+            <mat-accordion multi>
+                <mat-expansion-panel *ngFor="let lot of checkout.lots" [expanded]="expandAll">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Lot #{{lot.lotNumber}}
+                    </mat-panel-title>
 
-                <div *ngFor="let item of lot.items">
+                    <mat-panel-description>
+                      Total: {{lot.finalBid | currency}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <div *ngFor="let item of lot.items">
                     <span class="lotItemEntry">-{{item}}</span>
                 </div>
-
-                <div style="display: flex; margin-bottom: 16px">
-                    <span><strong>Total</strong></span>
-                    <span class="flexSpacer dottedBottomBorder"></span>
-                    <span>{{lot.finalBid | currency}}</span>
-                </div>
-            </div>
+                </mat-expansion-panel>
+              </mat-accordion>
         </div>
 
         <mat-divider></mat-divider>
@@ -34,6 +39,6 @@
        
     <div mat-dialog-actions>
         <button mat-button color="accent" (click)="onNoClick()">Cancel</button>
-        <button mat-raised-button color="primary" (click)="completeCheckout()">Complete</button>
+        <button mat-raised-button color="primary" (click)="completeCheckout()">{{checkout.total | currency}}</button>
     </div>
 </div>

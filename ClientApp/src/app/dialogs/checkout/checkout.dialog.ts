@@ -11,9 +11,11 @@ import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
   })
   export class CheckoutDialog implements OnInit {
     public checkout: Checkout;
+    public expandAll: Boolean;
 
     constructor(public dialogRef: MatDialogRef<CheckoutDialog>, @Inject(MAT_DIALOG_DATA) public data: Checkout, public dialog: MatDialog, public sbh: SnackBarHelper) {
       this.checkout = JSON.parse(JSON.stringify(data));
+      this.expandAll = false;
     }
 
     ngOnInit() {
