@@ -39,6 +39,6 @@
        
     <div mat-dialog-actions>
         <button mat-button color="accent" (click)="onNoClick()">Cancel</button>
-        <button mat-raised-button color="primary" (click)="completeCheckout()">{{checkout.total | currency}}</button>
+        <button mat-raised-button color="primary" (click)="completeCheckout()" *ngIf="!checkout.viewOnly">{{checkout.total | currency}}</button>
     </div>
 </div>

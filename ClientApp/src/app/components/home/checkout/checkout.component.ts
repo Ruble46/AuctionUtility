@@ -60,11 +60,12 @@ export class CheckoutComponent implements OnInit {
         bidder: {
             name: '',
             number: undefined,
-            hasPaid: false
+            hasPaid: false,
         },
         lots: new Array<Lot>(),
         total: 0.00,
         totalItems: 0,
+        viewOnly: false
       }
 
       for(let b = 0; b < this.lots.length; b++) {
@@ -92,6 +93,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   checkoutBidder(checkout: Checkout) {
+    checkout.viewOnly = false;
+
     const dialogRef = this.dialog.open(CheckoutDialog, {
       data: checkout,
       position: {
@@ -115,6 +118,19 @@ export class CheckoutComponent implements OnInit {
         });
       }
     });
+  }
+
+  viewCheckout(checkout: Checkout) {
+    checkout.viewOnly = true;
+
+    this.dialog.open(CheckoutDialog, {
+        data: checkout,
+        position: {
+          top: '10vh'
+        },
+        minWidth: '450px',
+        maxWidth: '500px'
+      });
   }
 
   undoCheckout(checkout: Checkout) {

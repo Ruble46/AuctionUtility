@@ -29,6 +29,7 @@ export class Checkout {
     lots: Array<Lot>;
     total: number;
     totalItems: number;
+    viewOnly: boolean;
 }
 
 export class LotDialogData {

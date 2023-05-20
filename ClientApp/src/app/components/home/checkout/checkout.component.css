@@ -48,3 +48,17 @@
     background-color: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
+
+.checkoutActionsCell {
+    width: 180px;
+}
+
+.checkoutActionContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.checkoutBtn {
+    width: 148px;
+}
