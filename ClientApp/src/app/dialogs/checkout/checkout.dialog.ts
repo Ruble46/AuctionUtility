@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { SnackBarHelper } from 'src/app/helpers/snackBar';
 import { Checkout } from '../../classes/classes';
 import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
+import { PrintReceiptDialog } from '../printReceipt/printReceipt.dialog';
 
 @Component({
     selector: 'checkoutDialog',
@@ -32,7 +33,8 @@ import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
         position: {
           top: '10vh'
         },
-        width: '400px'
+        minWidth: '450px',
+        maxWidth: '500px'
       });
     
       dialogRef.afterClosed().subscribe(result => {
@@ -40,5 +42,16 @@ import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
           this.dialogRef.close(this.checkout);
         }
       });
+    }
+
+    printReceiptDialog() {
+        this.dialog.open(PrintReceiptDialog, {
+            data: this.data,
+            position: {
+              top: '10vh'
+            },
+            minWidth: '500px',
+            maxWidth: '750px'
+        });
     }
   }

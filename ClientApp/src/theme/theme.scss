@@ -1,10 +1,6 @@
-@import "../../node_modules/@angular/material/theming";
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
+@use '../../node_modules/@angular/material/' as mat;
+@import '../../node_modules/@angular/material//theming';
+@include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
@@ -75,12 +71,45 @@ $md-mdaccent: (
     )
 );
 
+$md-mdaccent2: (
+    50 : #e0e4e8,
+    100 : #b3bcc6,
+    200 : #8090a1,
+    300 : #4d647b,
+    400 : #26425e,
+    500 : #002142,
+    600 : #001d3c,
+    700 : #001833,
+    800 : #00142b,
+    900 : #000b1d,
+    A100 : #5b82ff,
+    A200 : #285bff,
+    A400 : #0039f4,
+    A700 : #0033da,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
 
 // The warn palette is optional (defaults to red).
 $warn:    mat-palette($mat-red);
 
 $primary: mat-palette($md-mdprimary);
-$accent: mat-palette($md-mdaccent);
+$accent: mat-palette($md-mdaccent2);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $theme: mat-light-theme($primary, $accent, $warn);

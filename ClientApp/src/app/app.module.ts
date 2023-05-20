@@ -21,6 +21,7 @@ import { LotAddEditDialog } from './dialogs/lotAddEdit/lotAddEdit.dialog';
 import { LotFinalizeDialog } from './dialogs/lotFinalize/lotFinalize.dialog';
 import { CheckoutDialog } from './dialogs/checkout/checkout.dialog';
 import { ConfirmationDialog } from './dialogs/confirmation/confirmation.dialog';
+import { PrintReceiptDialog } from './dialogs/printReceipt/printReceipt.dialog';
 
 //========================= Helpers =========================
 import { cookies } from './helpers/cookies';
@@ -62,6 +63,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     LotFinalizeDialog,
     CheckoutDialog,
     ConfirmationDialog,
+    PrintReceiptDialog
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -113,6 +116,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     MatProgressBarModule,
     MatStepperModule,
     MatChipsModule,
+    MatGridListModule,
     MatPasswordStrengthModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
@@ -134,6 +138,7 @@ import { MatPasswordStrengthModule } from '@angular-material-extensions/password
     LotFinalizeDialog,
     CheckoutDialog,
     ConfirmationDialog,
+    PrintReceiptDialog
   ],
   bootstrap: [AppComponent]
 })

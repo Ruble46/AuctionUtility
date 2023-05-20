@@ -1,0 +1,48 @@
+<div>
+    <h3>Receipt</h3>
+
+    <mat-divider></mat-divider>
+    
+    <div mat-dialog-content>
+        <h4>FFA Booster Club</h4>
+        <div>
+            <img style="width: 30%; height: auto" src="../../../assets/BoosterFacebookQR.PNG">
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div>{{currentDate | date : 'medium'}}</div>
+
+        <mat-divider></mat-divider>
+
+        <table style="border-spacing: 12px 0;">
+            <tr>
+                <th style="width: 10%; font-size: 18px">QTY</th>
+                <th style="width: 80%; font-size: 18px">LOT</th>
+                <th style="width: 10%; font-size: 18px; text-align: right">AMT</th>
+            </tr>
+            <tr *ngFor="let lot of checkout.lots">
+                <td style="width: 10%">{{lot.items.length}}</td>
+                <td style="width: 80%">
+                    <div>
+                        <div>Lot #{{lot.lotNumber}}</div>
+                        <div *ngFor="let item of lot.items">-{{item}}</div>
+                    </div>
+                </td>
+                <td style="width: 10%; text-align: right">{{lot.finalBid | currency}}</td>
+            </tr>
+            <tr style="border-top: 1px solid rgba(0, 0, 0, 0.12); font-weight: 800; font-size: 18px">
+                <td>Total</td>
+                <td></td>
+                <td>{{checkout.total | currency}}</td>
+            </tr>
+          </table>
+    </div>
+         
+    <mat-divider></mat-divider>
+       
+    <div mat-dialog-actions>
+        <button mat-button color="accent" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="printReceipt()">Print</button>
+    </div>
+</div>
