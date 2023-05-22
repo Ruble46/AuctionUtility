@@ -11,9 +11,9 @@ import { SnackBarHelper } from 'src/app/helpers/snackBar';
 import { LotFinalizeDialog } from 'src/app/dialogs/lotFinalize/lotFinalize.dialog';
 
 @Component({
-    selector: 'auction',
-    templateUrl: './auction.component.html',
-    styleUrls: ['../../../../theme/theme.css', './auction.component.css'],
+    selector: 'finalize',
+    templateUrl: './finalize.component.html',
+    styleUrls: ['../../../../theme/theme.css', './finalize.component.css'],
     encapsulation: ViewEncapsulation.None,
     animations: [
         trigger('detailExpand', [
@@ -24,7 +24,7 @@ import { LotFinalizeDialog } from 'src/app/dialogs/lotFinalize/lotFinalize.dialo
     ],
 })
 
-export class AuctionComponent implements OnInit {
+export class FinalizeComponent implements OnInit {
     @ViewChild('scrollToMeLots') public myScrollLotsTable: ElementRef;
     bidders: Array<Bidder>;
     lots: Array<Lot>;
@@ -45,12 +45,13 @@ export class AuctionComponent implements OnInit {
         this.lotsService.GetAll().subscribe(result => {
             this.lots = result.body;
             let sum: number = 0;
+            
             for(let i = 0; i < this.lots.length; i++) {
                 if(this.lots[i].finalBid != 0) {
                     sum += this.lots[i].finalBid;
                 }
             }
-            console.log("Total: " + sum);
+            
             this.dataSourceLots = new MatTableDataSource(this.lots);
         }, error => {
             this.lots = new Array();

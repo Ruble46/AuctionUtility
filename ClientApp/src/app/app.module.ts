@@ -11,8 +11,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { HomeComponent } from './components/home/home.component';
-import { AuctionComponent } from './components/home/auction/auction.component';
-import { CheckoutComponent } from './components/home/checkout/checkout.component';
+
+import { LotsComponent } from './components/auction/lots/lots.component';
+import { BiddersComponent } from './components/auction/bidders/bidders.component';
+import { FinalizeComponent } from './components/auction/finalize/finalize.component';
+import { CheckoutComponent } from './components/auction/checkout/checkout.component';
+
 import { ToolsComponent } from './components/home/tools/tools.component';
 
 //========================= Dailogs =========================
@@ -70,8 +74,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    AuctionComponent,
-    CheckoutComponent,ToolsComponent,
+    LotsComponent,
+    BiddersComponent,
+    FinalizeComponent,
+    CheckoutComponent,
+    ToolsComponent,
     BidderAddEditDialog,
     LotAddEditDialog,
     LotFinalizeDialog,
@@ -123,9 +130,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'app', component: HomeComponent, children: [
-        { path: '', pathMatch: 'full', redirectTo: 'auction' },
-        { path: 'auction', component: AuctionComponent },
+        { path: '', pathMatch: 'full', redirectTo: 'lots' },
+        { path: 'lots', component: LotsComponent },
+        { path: 'bidders', component: BiddersComponent },
+        { path: 'finalize', component: FinalizeComponent },
         { path: 'checkout', component: CheckoutComponent },
+        
         { path: 'tools', component: ToolsComponent }
       ]},
       { path: '**', redirectTo: 'app' }

@@ -14,7 +14,6 @@ import { Checkout } from '../../classes/classes';
 
     constructor(public dialogRef: MatDialogRef<PrintReceiptDialog>, @Inject(MAT_DIALOG_DATA) public data: Checkout, public dialog: MatDialog, public sbh: SnackBarHelper) {
       this.checkout = JSON.parse(JSON.stringify(data));
-      console.log(this.checkout);
       this.currentDate = new Date();
     }
 

@@ -35,6 +35,33 @@
     font-feature-settings: 'liga';
 }
 
-.homeFlexSpacer {
-    flex: 1 1 auto;
+.homeRouteButton {
+    height: 48px;
+    width: 128px;
+    border-radius: 0px;
+}
+
+.homeDrawerSection {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    margin-bottom: 16px;
+}
+
+.homeLastButton {
+    margin-top: auto;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.homeDrawer {
+    height: 100vh;
+}
+
+.homeDrawerSectionHeader {
+    font-weight: 300;
+    font-size: 12px;
+    color: rgb(87, 87, 87);
+    padding: 8px;
 }

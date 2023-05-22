@@ -1,27 +1,66 @@
-<mat-toolbar color="primary" style="height: 56px !important">
-		<span>{{routeTitle}}</span>
-    <div class="homeFlexSpacer"></div>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/app/auction">
-          <mat-icon>home</mat-icon>
-          <span>Auction</span>
-        </button>
-        <button mat-menu-item routerLink="/app/checkout">
-          <mat-icon>shopping_cart</mat-icon>
-          <span>Checkout</span>
-        </button>
-        <button mat-menu-item routerLink="/app/tools" *ngIf="isOwner">
-          <mat-icon>build</mat-icon>
-          <span>Tools</span>
-        </button>
-        <button mat-menu-item (click)="logout()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-</mat-toolbar>
+<mat-drawer-container class="homeDrawer">
+    <mat-drawer mode="side" [opened]="openState">
+        <div class="flexColumn homeDrawer">
+            <div class="flexColumn homeDrawerSection">
+                <div class="homeDrawerSectionHeader">Auction</div>
 
-<router-outlet></router-outlet>
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/lots">
+                    <mat-icon>list</mat-icon>
+                    <span>Lots</span>
+                </button>
+
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/bidders">
+                    <mat-icon>person</mat-icon>
+                    <span>Bidders</span>
+                </button>
+
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/finalize">
+                    <mat-icon>check</mat-icon>
+                    <span>Finalize</span>
+                </button>
+
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/checkout">
+                    <mat-icon>shopping_cart</mat-icon>
+                    <span>Checkout</span>
+                </button>
+            </div>
+
+            <div class="flexColumn homeDrawerSection">
+                <div class="homeDrawerSectionHeader">Utility</div>
+                
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/tools">
+                    <mat-icon>build</mat-icon>
+                    <span>Tools</span>
+                </button>
+                
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/preferences">
+                    <mat-icon>settings</mat-icon>
+                    <span>Preferences</span>
+                </button>
+            </div>
+    
+            <div class="flexColumn homeDrawerSection">
+                <div class="homeDrawerSectionHeader">Reports</div>
+                
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/yearlyreport">
+                    <mat-icon>insights</mat-icon>
+                    <span>Yearly</span>
+                </button>
+                
+                <button mat-button color="primary" class="homeRouteButton" routerLink="/app/comparisonreport">
+                    <mat-icon>stacked_line_chart</mat-icon>
+                    <span>Comparison</span>
+                </button>
+            </div>
+    
+            <button mat-stroked-button color="warn" class="homeRouteButton homeLastButton" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+            </button>
+        </div>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
