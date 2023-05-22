@@ -13,8 +13,8 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
         optionsBuilder.UseSqlite("Data Source=db.sqlite");
     }
  
-    public DbSet<Bidder> Bidders { get; set; }
-    public DbSet<Lot> Lots {get; set; }
+    public DbSet<Bidder> Bidders => Set<Bidder>();
+    public DbSet<Lot> Lots => Set<Lot>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

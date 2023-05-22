@@ -6,7 +6,6 @@ namespace AuctionUtility
 
         public int number { get; set; } = 0;
 
-
         public bool hasPaid { get; set; } = false;
     }
 }

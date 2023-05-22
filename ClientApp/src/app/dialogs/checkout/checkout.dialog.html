@@ -41,6 +41,6 @@
         <button mat-button color="accent" (click)="onNoClick()">Cancel</button>
         <button mat-raised-button color="primary" (click)="completeCheckout()" *ngIf="!checkout.viewOnly">{{checkout.total | currency}}</button>
         <div class="flexSpacer"></div>
-        <button mat-raised-button color="accent" (click)="printReceiptDialog()">Print</button>
+        <button mat-raised-button color="accent" (click)="printReceiptDialog()">Print Receipt</button>
     </div>
 </div>

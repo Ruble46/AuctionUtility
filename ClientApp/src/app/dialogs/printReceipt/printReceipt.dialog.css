@@ -1,0 +1,75 @@
+.receiptContainer {
+    padding: 64px 100px;
+}
+
+.receiptCntCon {
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+}
+
+.receiptTable {
+    border-collapse: collapse; 
+    border-spacing: 8px;
+    margin-bottom: 64px;
+}
+
+.receiptTable td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.receiptLCol {
+    width: 10%; 
+}
+
+.receiptMCol {
+    width: 85%; 
+}
+
+.receiptRCol {
+    width: 5%; 
+}
+
+.lrgText {
+    font-size: 18px;
+}
+
+.textAlignR {
+    text-align: right
+}
+
+.textAlignT {
+    vertical-align: top;
+}
+
+.weight300 {
+    font-weight: 300;
+}
+
+.weight600 {
+    font-weight: 600;
+}
+
+.brdTp {
+    border-top: 1px solid rgba(0, 0, 0, 0.12)
+}
+
+.brdBtm {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12)
+}
+
+.mgBtm16 {
+    margin-bottom: 16px;
+}
+
+@media print {
+    .receiptContainer {
+        scale: 0.9;
+    }
+
+    @page {
+        size:auto;
+        margin:.5rem 0;
+  }
+}

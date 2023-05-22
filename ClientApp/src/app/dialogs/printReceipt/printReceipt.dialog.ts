@@ -23,6 +23,22 @@ import { Checkout } from '../../classes/classes';
     }
 
     printReceipt() {
-        
+        var content = document.getElementById("TOPRINT").cloneNode(true);
+        var myWindow = window.open('', 'my div', 'height=500,width=800');
+
+        myWindow.document.write('<html><head><title>my div</title>');
+        myWindow.document.write('</head><body >');
+        myWindow.document.write('</body></html>');
+
+        myWindow.document.head.innerHTML = document.getElementsByTagName("head")[0].innerHTML; //Copy existing document head to retain CSS
+        myWindow.document.body.append(content);  
+        myWindow.document.close(); // necessary for IE >= 10
+
+        myWindow.onload = function() { // necessary if the div contain images
+
+            myWindow.focus(); // necessary for IE >= 10
+            myWindow.print();
+            //myWindow.close();
+        };
     }
   }
