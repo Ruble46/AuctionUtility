@@ -36,14 +36,18 @@
 }
 
 .homeRouteButton {
-    height: 48px;
-    width: 128px;
+    height: 56px;
+    width: 142px;
     border-radius: 0px;
+}
+
+.homeRouteButton:not(.homeLogout) {
+    text-align: left;    
 }
 
 .homeDrawerSection {
     border-top: 1px solid rgba(0, 0, 0, 0.12);
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 }
 
 .homeLastButton {
@@ -55,8 +59,12 @@
     flex-direction: column;
 }
 
-.homeDrawer {
+.homeContainer {
     height: 100vh;
+}
+
+.homeDrawer {
+    height: calc(100vh - 64px);
 }
 
 .homeDrawerSectionHeader {

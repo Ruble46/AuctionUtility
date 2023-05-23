@@ -1,8 +1,10 @@
-<mat-toolbar color="primary">
-    Auction Bidder Assignment
-</mat-toolbar>
+<div class="biddersContentWrapper">
+    <mat-toolbar color="accent">
+        Auction Bidder Assignment
+    </mat-toolbar>
 
-<div>
+    <mat-progress-bar *ngIf="requestCount > 0" mode="indeterminate"></mat-progress-bar>
+
     <mat-toolbar class="columnHeader">
         <button mat-flat-button (click)="addBidder()" color="primary" style="width: 100%">
             <mat-icon>add</mat-icon>
@@ -10,7 +12,7 @@
         </button>
     </mat-toolbar>
     
-    <div class="homeTabContentWrapper">
+    <div class="biddersTableWrapper">
         <table mat-table [dataSource]="dataSourceBidders" class="biddersTable whiteBackground">
             <!-- Number Column -->
             <ng-container matColumnDef="number">

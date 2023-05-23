@@ -39,9 +39,14 @@
     width: 100%;
 }
 
-.checkoutWraper {
-    height: calc(100vh - 56px);
-    overflow: auto;
+.checkoutContentWraper {
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.checkoutTableWrapper {
+    overflow-y: auto;
+    height: calc(100% - 190px);
 }
 
 .checkoutInfoPanel {

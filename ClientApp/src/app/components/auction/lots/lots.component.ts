@@ -1,14 +1,11 @@
 import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { BidderAddEditDialog } from '../../../dialogs/BidderAddEdit/BidderAddEdit.dialog';
-import { Lot, Bidder, LotDialogData, DialogMode, BidderDialogData } from '../../../classes/classes';
+import { Lot, LotDialogData, DialogMode } from '../../../classes/classes';
 import { LotAddEditDialog } from '../../../dialogs/lotAddEdit/lotAddEdit.dialog';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { BiddersService } from 'src/app/services/biddersService';
 import { LotsService } from 'src/app/services/lotsService';
 import { SnackBarHelper } from 'src/app/helpers/snackBar';
-import { LotFinalizeDialog } from 'src/app/dialogs/lotFinalize/lotFinalize.dialog';
 
 @Component({
     selector: 'lots',
@@ -27,16 +24,19 @@ import { LotFinalizeDialog } from 'src/app/dialogs/lotFinalize/lotFinalize.dialo
 export class LotsComponent implements OnInit {
     @ViewChild('scrollToMeLots') public myScrollLotsTable: ElementRef;
     lots: Array<Lot>;
-    dataSourceBidders: any;
     dataSourceLots: any;
+    public requestCount: number;
 
     displayedColumns: string[] = ['lotNumber', 'itemsCount', 'items', 'actions'];
 
-    constructor(public dialog: MatDialog, public bidderService: BiddersService, public lotsService: LotsService, public sbh: SnackBarHelper) {
+    constructor(public dialog: MatDialog, public lotsService: LotsService, public sbh: SnackBarHelper) {
         this.lots = new Array<Lot>();
+        this.requestCount = 0;
     }
 
     ngOnInit() {
+        this.requestCount++;
+
         this.lotsService.GetAll().subscribe(result => {
             this.lots = result.body;
             let sum: number = 0;
@@ -48,12 +48,14 @@ export class LotsComponent implements OnInit {
             }
             
             this.dataSourceLots = new MatTableDataSource(this.lots);
+            this.requestCount--;
         }, error => {
             this.lots = new Array();
             this.dataSourceLots = new MatTableDataSource(this.lots);
             this.sbh.openSnackBar("Failed to retrieve lots from the server", "Dismiss", 3000);
             console.error(error);
-        })
+            this.requestCount--;
+        });
     }
 
     getNextLotNumber(): number {
@@ -96,9 +98,12 @@ export class LotsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
+                this.requestCount++;
                 this.lotsService.GetAll().subscribe(result => {
                     this.lots = result.body;
                     this.dataSourceLots = new MatTableDataSource(this.lots);
+                    this.requestCount--;
+
                     setTimeout(() => {
                         this.scrollToLotBottom();
                     }, 200);
@@ -107,6 +112,7 @@ export class LotsComponent implements OnInit {
                     this.dataSourceLots = new MatTableDataSource(this.lots);
                     this.sbh.openSnackBar("Failed to retrieve lots from the server", "Dismiss", 3000);
                     console.error(error);
+                    this.requestCount--;
                 });
             }
         });
@@ -124,14 +130,17 @@ export class LotsComponent implements OnInit {
         //result will be undefined for close or cancel
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
+                this.requestCount++;
                 this.lotsService.GetAll().subscribe(result => {
                     this.lots = result.body;
                     this.dataSourceLots = new MatTableDataSource(this.lots);
+                    this.requestCount--;
                 }, error => {
                     this.lots = new Array();
                     this.dataSourceLots = new MatTableDataSource(this.lots);
                     this.sbh.openSnackBar("Failed to retrieve lots from the server", "Dismiss", 3000);
                     console.error(error);
+                    this.requestCount--;
                 });
             }
         });

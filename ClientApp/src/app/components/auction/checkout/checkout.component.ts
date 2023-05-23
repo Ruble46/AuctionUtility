@@ -23,9 +23,10 @@ export class CheckoutComponent implements OnInit {
   dataSource: MatTableDataSource<Checkout>;
   grandTotal: number = 0;
   biddersWithNoLots: Bidder[] = [];
+  public requestCount: number;
 
   constructor(public dialog: MatDialog, public biddersService: BiddersService, public lotsService: LotsService, public sbh: SnackBarHelper) {
-    
+    this.requestCount = 0;
   }
 
   ngOnInit() {
@@ -33,21 +34,27 @@ export class CheckoutComponent implements OnInit {
   }
 
   RetrieveData() {
+    this.requestCount++;
     this.biddersService.GetAll().subscribe(result => {
-      this.bidders = result.body;
+        this.bidders = result.body;
+        this.requestCount--;
 
-      this.lotsService.GetAll().subscribe(result => {
-        this.lots = result.body;
-        this.InitializeCheckouts();
-      }, error => {
-        this.lots = new Array();
-        this.sbh.openSnackBar("Failed to retrieve all lots from the server", "Dismiss", 3000);
-        console.error(error);
-      })
+        this.requestCount++;
+        this.lotsService.GetAll().subscribe(result => {
+            this.lots = result.body;
+            this.InitializeCheckouts();
+            this.requestCount--;
+        }, error => {
+            this.lots = new Array();
+            this.sbh.openSnackBar("Failed to retrieve all lots from the server", "Dismiss", 3000);
+            console.error(error);
+            this.requestCount--;
+        });
     }, error => {
-      this.bidders = new Array();
-      this.sbh.openSnackBar("Failed to retrieve all bidders from the server", "Dismiss", 3000);
-      console.error(error);
+        this.bidders = new Array();
+        this.sbh.openSnackBar("Failed to retrieve all bidders from the server", "Dismiss", 3000);
+        console.error(error);
+        this.requestCount--;
     });
   }
 
@@ -108,13 +115,16 @@ export class CheckoutComponent implements OnInit {
       if(result !== undefined) {
         checkout.bidder.hasPaid = true;
 
+        this.requestCount++;
         this.biddersService.Edit(checkout.bidder).subscribe(result => {
           this.sbh.openSnackBar("Bidder '" + checkout.bidder.name + "' has been checked out successfully", "Dismiss", 3000);
           this.RetrieveData();
+          this.requestCount--;
         }, error => {
           console.error(error);
           this.sbh.openSnackBar("Failed to checkout the user '" + checkout.bidder.name + "'", "Dismiss", 3000);
           checkout.bidder.hasPaid = false;
+          this.requestCount--;
         });
       }
     });
@@ -142,13 +152,16 @@ export class CheckoutComponent implements OnInit {
       if(result !== undefined) {
         checkout.bidder.hasPaid = false;
 
+        this.requestCount++;
         this.biddersService.Edit(checkout.bidder).subscribe(result => {
           this.sbh.openSnackBar("Bidder '" + checkout.bidder.name + "' checkout has been reverted successfully", "Dismiss", 3000);
           this.RetrieveData();
+          this.requestCount--;
         }, error => {
           console.error(error);
           this.sbh.openSnackBar("Failed to undo checkout for user '" + checkout.bidder.name + "'", "Dismiss", 3000);
           checkout.bidder.hasPaid = true;
+          this.requestCount--;
         });
       }
     });

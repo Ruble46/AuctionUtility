@@ -39,14 +39,17 @@
     flex: 1 1 auto;
 }
 
-.homeTabContentWrapper {
-    width: 100vw;
-    height: calc(100vh - 168px);
-    overflow-x: hidden;
+.lotsContentWrapper {
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.lotsTableWrapper {
+    overflow-y: auto;
+    height: calc(100% - 128px);
 }
 
 .columnHeader {
-    /* text-align: center; */
     border-top: solid 1px white;
 }
 

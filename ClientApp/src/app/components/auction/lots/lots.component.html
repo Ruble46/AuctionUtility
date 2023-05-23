@@ -1,16 +1,18 @@
-<mat-toolbar color="primary">
-    Pre Auction Lot Configuration
-</mat-toolbar>
+<div class="lotsContentWrapper">
+    <mat-toolbar color="accent">
+        Pre Auction Lot Configuration
+    </mat-toolbar>
 
-<div>
+    <mat-progress-bar *ngIf="requestCount > 0" mode="indeterminate"></mat-progress-bar>
+
     <mat-toolbar class="columnHeader">
-        <button mat-flat-button (click)="addLot()" color="primary" style="width: 100%">
+        <button mat-raised-button (click)="addLot()" color="primary" style="width: 100%">
             <mat-icon>add</mat-icon>
             Add Lot
         </button>
     </mat-toolbar>
 
-    <div class="homeTabContentWrapper" #scrollToMeLots>
+    <div class="lotsTableWrapper" #scrollToMeLots>
         <table mat-table [dataSource]="dataSourceLots" class="biddersTable whiteBackground">
             <!-- Lot Number Column -->
             <ng-container matColumnDef="lotNumber">
