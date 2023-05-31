@@ -12,12 +12,18 @@ import { LoginComponent } from './components/login/login.component';
 
 import { HomeComponent } from './components/home/home.component';
 
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
 import { LotsComponent } from './components/auction/lots/lots.component';
 import { BiddersComponent } from './components/auction/bidders/bidders.component';
 import { FinalizeComponent } from './components/auction/finalize/finalize.component';
 import { CheckoutComponent } from './components/auction/checkout/checkout.component';
 
-import { ToolsComponent } from './components/home/tools/tools.component';
+import { ToolsComponent } from './components/utility/tools/tools.component';
+import { PreferencesComponent } from './components/utility/preferences/preferences.component';
+
+import { YearlyReportComponent } from './components/reports/yearly/yearly.component';
+import { ComparisonReportComponent } from './components/reports/comparison/comparison.component';
 
 //========================= Dailogs =========================
 import { BidderAddEditDialog } from './dialogs/BidderAddEdit/BidderAddEdit.dialog';
@@ -37,6 +43,7 @@ import { SnackBarHelper } from './helpers/snackBar';
 import { SessionService } from './services/sessionService';
 import { BiddersService } from './services/biddersService';
 import { LotsService } from './services/lotsService';
+import { PreferencesService } from './services/preferencesService';
 
 //========================= Material =========================
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -74,11 +81,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
     AppComponent,
     LoginComponent,
     HomeComponent,
+    DashboardComponent,
     LotsComponent,
     BiddersComponent,
     FinalizeComponent,
     CheckoutComponent,
     ToolsComponent,
+    PreferencesComponent,
+    YearlyReportComponent,
+    ComparisonReportComponent,
     BidderAddEditDialog,
     LotAddEditDialog,
     LotFinalizeDialog,
@@ -130,18 +141,24 @@ import { MatGridListModule } from '@angular/material/grid-list';
       { path: '', component: LoginComponent, pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'app', component: HomeComponent, children: [
-        { path: '', pathMatch: 'full', redirectTo: 'lots' },
+        { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+        { path: 'dashboard', component: DashboardComponent },
+
         { path: 'lots', component: LotsComponent },
         { path: 'bidders', component: BiddersComponent },
         { path: 'finalize', component: FinalizeComponent },
         { path: 'checkout', component: CheckoutComponent },
         
-        { path: 'tools', component: ToolsComponent }
+        { path: 'tools', component: ToolsComponent },
+        { path: 'preferences', component: PreferencesComponent },
+
+        { path: 'yearlyreport', component: YearlyReportComponent },
+        { path: 'comparisonreport', component: ComparisonReportComponent }
       ]},
       { path: '**', redirectTo: 'app' }
     ], { useHash: true }),
   ],
-  providers: [cookies, Guid, ScreenSize, SnackBarHelper, SessionService, BiddersService, LotsService],
+  providers: [cookies, Guid, ScreenSize, SnackBarHelper, SessionService, BiddersService, LotsService, PreferencesService],
   entryComponents: [
     BidderAddEditDialog,
     LotAddEditDialog,

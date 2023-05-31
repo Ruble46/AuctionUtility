@@ -35,49 +35,7 @@
     font-feature-settings: 'liga';
 }
 
-.homeRouteButton {
-    height: 56px;
-    width: 142px;
-    border-radius: 0px;
-}
-
-.homeRouteButton:not(.homeLogout) {
-    text-align: left;    
-}
-
-.homeDrawerSection {
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
-    margin-bottom: 32px;
-}
-
-.homeLastButton {
-    margin-top: auto;
-}
-
-.flexColumn {
-    display: flex;
-    flex-direction: column;
-}
-
-.homeContainer {
+.dashboardContentWrapper {
+    overflow-y: hidden;
     height: 100vh;
-}
-
-.homeDrawer {
-    height: calc(100vh - 64px);
-}
-
-.homeDrawerSectionHeader {
-    font-weight: 300;
-    font-size: 12px;
-    color: rgb(87, 87, 87);
-    padding: 8px;
-}
-
-.homeBtnTxt {
-    padding-left: 8px;
-}
-
-.hrbFocused {
-    background-color: #d5e3f1;
 }

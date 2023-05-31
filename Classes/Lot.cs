@@ -9,5 +9,7 @@ namespace AuctionUtility
         public double? finalBid { get; set; }
 
         public int? buyerNumber { get; set; }
+
+        public int auctionYear {get; set; } = 0;
     }
 }

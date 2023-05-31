@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SnackBarHelper } from 'src/app/helpers/snackBar';
 import { SessionService } from 'src/app/services/sessionService';
 
@@ -11,9 +11,11 @@ import { SessionService } from 'src/app/services/sessionService';
 
 export class HomeComponent implements OnInit {
     openState: boolean;
+    route: string;
 
     constructor(public sessionService: SessionService, public router: Router, public sbh: SnackBarHelper) {
         this.openState = false;
+        this.route = "";
     }
 
     ngOnInit() {
@@ -27,6 +29,19 @@ export class HomeComponent implements OnInit {
         setTimeout(() => {
             this.openState = true;
         }, 100);
+
+        this.setRouteSegment(this.router.url);
+
+        this.router.events.subscribe(event => {
+            if(event instanceof NavigationEnd) {
+                this.setRouteSegment(event.url);
+            }
+        });
+    }
+
+    //Gets the last segment from the url and caches it
+    setRouteSegment(route: string) {
+        this.route = route.substring(route.lastIndexOf('/') + 1);
     }
 
     logout() {

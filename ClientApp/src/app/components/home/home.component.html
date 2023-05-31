@@ -3,54 +3,61 @@
         <mat-toolbar color="accent"></mat-toolbar>
         <div class="flexColumn homeDrawer">
             <div class="flexColumn homeDrawerSection">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'dashboard'}" routerLink="/app/dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                    <span class="homeBtnTxt">Dashboard</span>
+                </button>
+            </div>
+
+            <div class="flexColumn homeDrawerSection">
                 <div class="homeDrawerSectionHeader">Auction</div>
 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/lots">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'lots'}" routerLink="/app/lots">
                     <mat-icon>list</mat-icon>
-                    <span>Lots</span>
+                    <span class="homeBtnTxt">Lots</span>
                 </button>
 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/bidders">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'bidders'}" routerLink="/app/bidders">
                     <mat-icon>person</mat-icon>
-                    <span>Bidders</span>
+                    <span class="homeBtnTxt">Bidders</span>
                 </button>
 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/finalize">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'finalize'}" routerLink="/app/finalize">
                     <mat-icon>check</mat-icon>
-                    <span>Finalize</span>
+                    <span class="homeBtnTxt">Finalize</span>
                 </button>
 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/checkout">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'checkout'}" routerLink="/app/checkout">
                     <mat-icon>shopping_cart</mat-icon>
-                    <span>Checkout</span>
+                    <span class="homeBtnTxt">Checkout</span>
                 </button>
             </div>
 
             <div class="flexColumn homeDrawerSection">
                 <div class="homeDrawerSectionHeader">Utility</div>
                 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/tools">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'tools'}" routerLink="/app/tools">
                     <mat-icon>build</mat-icon>
-                    <span>Tools</span>
+                    <span class="homeBtnTxt">Tools</span>
                 </button>
                 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/preferences">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'preferences'}" routerLink="/app/preferences">
                     <mat-icon>settings</mat-icon>
-                    <span>Preferences</span>
+                    <span class="homeBtnTxt">Preferences</span>
                 </button>
             </div>
     
             <div class="flexColumn homeDrawerSection">
                 <div class="homeDrawerSectionHeader">Reports</div>
                 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/yearlyreport">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'yearlyreport'}" routerLink="/app/yearlyreport">
                     <mat-icon>insights</mat-icon>
-                    <span>Yearly</span>
+                    <span class="homeBtnTxt">Yearly</span>
                 </button>
                 
-                <button mat-button color="accent" class="homeRouteButton" routerLink="/app/comparisonreport">
+                <button mat-button color="accent" class="homeRouteButton" [ngClass]="{'hrbFocused': route === 'comparisonreport'}" routerLink="/app/comparisonreport">
                     <mat-icon>stacked_line_chart</mat-icon>
-                    <span>Comparison</span>
+                    <span class="homeBtnTxt">Comparison</span>
                 </button>
             </div>
     

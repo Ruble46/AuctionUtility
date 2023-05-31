@@ -74,7 +74,8 @@ export class BiddersComponent implements OnInit {
         var bidder: Bidder = {
             name: "",
             number: this.getBidderNextNumber(),
-            hasPaid: false
+            hasPaid: false,
+            auctionYear: undefined
         }
 
         const dialogRef = this.dialog.open(BidderAddEditDialog, {

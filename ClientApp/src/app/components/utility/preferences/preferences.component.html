@@ -1,0 +1,16 @@
+<div class="preferencesContentWrapper">
+    <mat-toolbar color="accent">
+        App Preferences
+    </mat-toolbar>
+
+    <button mat-flat-button color="primary" (click)="safePreferences()">Save</button>
+
+    <mat-form-field appearance="outline" class="preferencesForm">
+        <mat-label>Selected Year</mat-label>
+        <mat-select [(value)]="preference.selectedYear">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>

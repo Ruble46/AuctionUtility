@@ -24,9 +24,11 @@ export class CheckoutComponent implements OnInit {
   grandTotal: number = 0;
   biddersWithNoLots: Bidder[] = [];
   public requestCount: number;
+  highestCheckout: Checkout;
 
   constructor(public dialog: MatDialog, public biddersService: BiddersService, public lotsService: LotsService, public sbh: SnackBarHelper) {
     this.requestCount = 0;
+    this.highestCheckout = new Checkout();
   }
 
   ngOnInit() {
@@ -68,6 +70,7 @@ export class CheckoutComponent implements OnInit {
             name: '',
             number: undefined,
             hasPaid: false,
+            auctionYear: undefined
         },
         lots: new Array<Lot>(),
         total: 0.00,
@@ -87,6 +90,11 @@ export class CheckoutComponent implements OnInit {
       //Check if the buyer won any lots
       if(tempCheckout.lots.length > 0) {
         this.checkouts.push(tempCheckout);
+
+        if(tempCheckout.total > this.highestCheckout.total) {
+            console.log(tempCheckout);
+            this.highestCheckout = tempCheckout;
+        }
       } else {
         this.biddersWithNoLots.push(this.bidders[a]);
       }

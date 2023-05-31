@@ -86,6 +86,7 @@ export class LotsComponent implements OnInit {
             items: new Array<string>(0),
             finalBid: undefined,
             buyerNumber: undefined,
+            auctionYear: undefined
         }
 
         const dialogRef = this.dialog.open(LotAddEditDialog, {

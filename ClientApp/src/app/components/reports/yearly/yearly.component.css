@@ -35,40 +35,7 @@
     font-feature-settings: 'liga';
 }
 
-.checkoutTable {
-    width: 100%;
-}
-
-.checkoutContentWraper {
+.yearlyReportContentWrapper {
     overflow-y: hidden;
     height: 100vh;
-}
-
-.checkoutTableWrapper {
-    overflow-y: auto;
-    height: 100%;
-}
-
-.checkoutInfoPanel {
-    background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-.checkoutActionsCell {
-    width: 180px;
-}
-
-.checkoutActionContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-.checkoutBtn {
-    width: 148px;
-}
-
-.checkoutTabGroup {
-    height: calc(100vh - 64px);
-    overflow-y: hidden;
 }

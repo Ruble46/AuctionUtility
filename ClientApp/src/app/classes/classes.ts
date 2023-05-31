@@ -5,7 +5,8 @@ export class Bidder {
 
     public name: string;
     number: number;
-    hasPaid: Boolean;  
+    hasPaid: Boolean;
+    auctionYear: number;
 }
 
 export class Lot {
@@ -16,7 +17,17 @@ export class Lot {
     lotNumber: number;
     items: Array<string>;
     finalBid: number;
-    buyerNumber: number;  
+    buyerNumber: number;
+    auctionYear: number;
+}
+
+export class Preference {
+    constructor() {
+        this.selectedYear = 0;
+    }
+
+    id: number;
+    selectedYear: number;
 }
 
 export class Checkout {

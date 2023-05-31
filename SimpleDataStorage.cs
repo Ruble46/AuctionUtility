@@ -14,7 +14,11 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
     }
  
     public DbSet<Bidder> Bidders => Set<Bidder>();
+
     public DbSet<Lot> Lots => Set<Lot>();
+
+    public DbSet<Preferences> Preferences => Set<Preferences>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -24,7 +28,8 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
         {
             b.HasKey(e => e.number);
             b.Property(e => e.name);
-            b.Property(e => e.hasPaid); 
+            b.Property(e => e.hasPaid);
+            b.Property(e => e.auctionYear);
             b.ToTable("Bidders");
         });
 
@@ -36,7 +41,15 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
                 v => JsonConvert.DeserializeObject<string[]>(v));
             b.Property(e => e.finalBid);
             b.Property(e => e.buyerNumber);
+            b.Property(e => e.auctionYear);
             b.ToTable("Lots");
+        });
+
+        modelBuilder.Entity<Preferences>(b => 
+        {
+            b.HasKey(b => b.id);
+            b.Property(b => b.selectedYear);
+            b.ToTable("Preferences");
         });
     }
 }

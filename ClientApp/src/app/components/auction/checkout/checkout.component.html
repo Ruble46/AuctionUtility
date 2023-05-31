@@ -5,67 +5,107 @@
 
     <mat-progress-bar *ngIf="requestCount > 0" mode="indeterminate"></mat-progress-bar>
 
-    <mat-list class="checkoutInfoPanel" dense>
-        <mat-list-item>
-            <mat-icon mat-list-icon>attach_money</mat-icon>
-            <div mat-line>Grand Total</div>
-            <div mat-line>{{grandTotal | currency}}</div>
-        </mat-list-item>
+    <mat-tab-group mat-stretch-tabs class="checkoutTabGroup">
+        <mat-tab label="Process">
+            <div class="checkoutTableWrapper">
+                <table mat-table [dataSource]="dataSource" class="checkoutTable">
+                    <!-- Buyer Number Column -->
+                    <ng-container matColumnDef="buyerNumber">
+                        <th mat-header-cell *matHeaderCellDef> Bidder Number </th>
+                        <td mat-cell *matCellDef="let checkout"> #{{checkout.bidder.number}} </td>
+                    </ng-container>
 
-        <mat-divider></mat-divider>
+                    <!-- Lots Column -->
+                    <ng-container matColumnDef="buyerName">
+                        <th mat-header-cell *matHeaderCellDef> Buyer Name </th>
+                        <td mat-cell *matCellDef="let checkout"> {{checkout.bidder.name}} </td>
+                    </ng-container>
 
-        <mat-list-item>
-            <mat-icon mat-list-icon>person</mat-icon>
-            <div mat-line>Bidders with no lots</div>
-            <div mat-line>
-                <mat-chip-list aria-label="Item selection" [selectable]="false">
-                    <mat-chip *ngFor="let bidder of biddersWithNoLots" disableRipple>{{bidder.name}} ({{bidder.number}})</mat-chip>
-                </mat-chip-list>
+                    <!-- Total Items Column -->
+                    <ng-container matColumnDef="totalItems">
+                        <th mat-header-cell *matHeaderCellDef> Total Items </th>
+                        <td mat-cell *matCellDef="let checkout"> {{checkout.totalItems}} </td>
+                    </ng-container>
+
+                    <!-- Total Column -->
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef> Total </th>
+                        <td mat-cell *matCellDef="let checkout"> {{checkout.total | currency}} </td>
+                    </ng-container>
+
+                    <!-- Actions Column -->
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let checkout" class="checkoutActionsCell">
+                            <div class="checkoutActionContainer">
+                                <button mat-raised-button color="primary" class="checkoutBtn"
+                                    (click)="checkoutBidder(checkout)"
+                                    *ngIf="!checkout.bidder.hasPaid">Checkout</button>
+                                <button mat-stroked-button color="primary" (click)="viewCheckout(checkout)"
+                                    *ngIf="checkout.bidder.hasPaid">View</button>
+                                <button mat-stroked-button color="warn" (click)="undoCheckout(checkout)"
+                                    *ngIf="checkout.bidder.hasPaid">Undo?</button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
             </div>
-        </mat-list-item>
-    </mat-list>
+        </mat-tab>
+        <mat-tab label="Details">
+            <mat-list class="checkoutInfoPanel" dense>
+                <mat-list-item>
+                    <mat-icon mat-list-icon>request_quote</mat-icon>
+                    <div mat-line>Grand Total</div>
+                    <div mat-line>{{grandTotal | currency}}</div>
+                </mat-list-item>
 
-    <div class="checkoutTableWrapper">
-        <table mat-table [dataSource]="dataSource" class="checkoutTable">
-            <!-- Buyer Number Column -->
-            <ng-container matColumnDef="buyerNumber">
-              <th mat-header-cell *matHeaderCellDef> Bidder Number </th>
-              <td mat-cell *matCellDef="let checkout"> #{{checkout.bidder.number}} </td>
-            </ng-container>
-          
-            <!-- Lots Column -->
-            <ng-container matColumnDef="buyerName">
-              <th mat-header-cell *matHeaderCellDef> Buyer Name </th>
-              <td mat-cell *matCellDef="let checkout"> {{checkout.bidder.name}} </td>
-            </ng-container>
-          
-            <!-- Total Items Column -->
-            <ng-container matColumnDef="totalItems">
-              <th mat-header-cell *matHeaderCellDef> Total Items </th>
-              <td mat-cell *matCellDef="let checkout"> {{checkout.totalItems}} </td>
-            </ng-container>
-          
-            <!-- Total Column -->
-            <ng-container matColumnDef="total">
-              <th mat-header-cell *matHeaderCellDef> Total </th>
-              <td mat-cell *matCellDef="let checkout"> {{checkout.total | currency}} </td>
-            </ng-container>
-        
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let checkout" class="checkoutActionsCell">
-                    <div class="checkoutActionContainer">
-                        <button mat-raised-button color="primary" class="checkoutBtn" (click)="checkoutBidder(checkout)" *ngIf="!checkout.bidder.hasPaid">Checkout</button>
-                        <button mat-stroked-button color="primary" (click)="viewCheckout(checkout)" *ngIf="checkout.bidder.hasPaid">View</button>
-                        <button mat-stroked-button color="warn" (click)="undoCheckout(checkout)" *ngIf="checkout.bidder.hasPaid">Undo?</button>
-                    </div>
-                </td>
-              </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-    </div>
+                <mat-divider></mat-divider>
+
+                <mat-list-item>
+                    <mat-icon mat-list-icon>attach_money</mat-icon>
+                    <div mat-line>Highest Bidder</div>
+                    <div mat-line *ngIf="highestCheckout && highestCheckout.bidder">{{highestCheckout.bidder.name}}
+                        {{highestCheckout.total | currency}}</div>
+                </mat-list-item>
+            </mat-list>
+
+            <mat-accordion multi>
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon style="transform: scale(0.75);">people_outline</mat-icon>
+                                <span style="padding-left: 16px;">Bidders with NO lots</span>
+                            </mat-panel-title>
+
+                            <mat-panel-description>Count: {{biddersWithNoLots.length}}</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    
+                    <mat-chip-list [selectable]="false">
+                        <mat-chip *ngFor="let bidder of biddersWithNoLots" disableRipple>
+                            {{bidder.name}} ({{bidder.number}})
+                        </mat-chip>
+                    </mat-chip-list>
+                </mat-expansion-panel>
+                
+                <mat-expansion-panel expanded>
+                    <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon style="transform: scale(0.75);">people_outline</mat-icon>
+                                <span style="padding-left: 16px;">Bidders with lots</span>
+                            </mat-panel-title>
+
+                            <mat-panel-description>Count: {{checkouts.length}}</mat-panel-description>
+                    </mat-expansion-panel-header>
+                    
+                    <mat-chip-list [selectable]="false">
+                        <mat-chip *ngFor="let checkout of checkouts" disableRipple>
+                            {{checkout.bidder.name}} ({{checkout.bidder.number}})</mat-chip>
+                    </mat-chip-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-tab>
+    </mat-tab-group>
 </div>
-  

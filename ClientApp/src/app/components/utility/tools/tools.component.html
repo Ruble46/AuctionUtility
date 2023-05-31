@@ -1,0 +1,27 @@
+<div class="toolsContentWrapper">
+    <mat-toolbar color="accent">
+        Data Toolset
+    </mat-toolbar>
+
+    <mat-card class="toolsCard">
+        <mat-card-header>
+          <mat-card-title>Admin Utilities</mat-card-title>
+        </mat-card-header>
+      
+        <mat-divider></mat-divider>
+      
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Security Key</mat-label>
+            <input matInput type="password" placeholder="Security Key" [(ngModel)]="adminKey">
+          </mat-form-field>
+        </mat-card-content>
+      
+        <mat-divider></mat-divider>
+      
+        <mat-card-actions>
+          <button mat-raised-button color="warn" (click)="deleteAllLots()">Delete All Lots</button>
+          <button mat-raised-button color="warn" (click)="deleteAllBidder()">Delete All Bidders</button>
+        </mat-card-actions>
+      </mat-card>
+</div>

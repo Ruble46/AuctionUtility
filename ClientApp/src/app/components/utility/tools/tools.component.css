@@ -39,3 +39,8 @@
     width: 300px;
     margin: 16px auto 0 auto;
 }
+
+.toolsContentWrapper {
+    overflow-y: hidden;
+    height: 100vh;
+}

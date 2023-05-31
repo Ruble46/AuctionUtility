@@ -8,7 +8,8 @@ const PROXY_CONFIG = [
     context: [
       "/session",
       "/lots",
-      "/bidders"
+      "/bidders",
+      "/preferences"
    ],
     target: target,
     secure: false,
