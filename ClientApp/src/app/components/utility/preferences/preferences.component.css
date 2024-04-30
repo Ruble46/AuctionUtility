@@ -37,10 +37,19 @@
 
 .preferencesContentWrapper {
     overflow-y: hidden;
-    height: 100vh;
+    height: 100vh;   
 }
 
-.preferencesForm {
+.preferencesContainer {
+    flex-direction: column;
+    margin: 0 16px 0 16px;
+    display: flex;
+}
+
+.preferencesFormField {
     margin-top: 16px;
-    margin-left: 16px;
+}
+
+.preferencesComponent {
+    max-width: 300px;
 }

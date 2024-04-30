@@ -44,3 +44,8 @@
     overflow-y: hidden;
     height: 100vh;
 }
+
+.toolsComponent {
+    width: 100%;
+    margin-top: 8px !important;
+}

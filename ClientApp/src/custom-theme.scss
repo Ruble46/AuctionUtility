@@ -33,3 +33,6 @@ $AuctionUtility-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($AuctionUtility-theme);
 
+.my-snackbar {
+    button {color: white}
+}

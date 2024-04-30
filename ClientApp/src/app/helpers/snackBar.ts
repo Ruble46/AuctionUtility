@@ -12,6 +12,7 @@ export class SnackBarHelper {
     openSnackBar(message: string, action: string, lengthMs: number) {
         this.snackBar.open(message, action, {
             duration: lengthMs,
+            panelClass: "my-snackbar"
         });
     }
 }

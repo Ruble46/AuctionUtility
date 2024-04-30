@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 
         setTimeout(() => {
             this.openState = true;
-        }, 100);
+        }, 200);
 
         this.setRouteSegment(this.router.url);
 
