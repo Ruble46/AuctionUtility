@@ -22,26 +22,24 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
- 
+        
         //Define the Table(s) and References to be created automatically
         modelBuilder.Entity<Bidder>(b =>
         {
-            b.HasKey(e => e.number);
+            b.HasKey(e => new {e.number, e.auctionYear});
             b.Property(e => e.name);
             b.Property(e => e.hasPaid);
-            b.Property(e => e.auctionYear);
             b.ToTable("Bidders");
         });
 
         modelBuilder.Entity<Lot>(b =>
         {
-            b.HasKey(e => e.lotNumber);
+            b.HasKey(e => new {e.lotNumber, e.auctionYear});
             b.Property(e => e.items).HasConversion(
                 v => JsonConvert.SerializeObject(v),
                 v => JsonConvert.DeserializeObject<string[]>(v));
             b.Property(e => e.finalBid);
             b.Property(e => e.buyerNumber);
-            b.Property(e => e.auctionYear);
             b.ToTable("Lots");
         });
 

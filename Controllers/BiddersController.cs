@@ -43,6 +43,9 @@ namespace AuctionUtility.Controllers
             }
             
             try {
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                bidder.auctionYear = preferences.selectedYear;
+
                 this._db.Bidders.Add(bidder);
                 this._db.SaveChanges();
                 return StatusCode(200, "User " + bidder.name + " added");
@@ -57,7 +60,8 @@ namespace AuctionUtility.Controllers
         public ActionResult GetSingle(int bidderNumber)
         {
             try {
-                Bidder? bidder = this._db.Bidders.Find(bidderNumber);
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                Bidder? bidder = this._db.Bidders.FirstOrDefault(bidder => bidder.number == bidderNumber && bidder.auctionYear.Equals(preferences.selectedYear));
                 return StatusCode(200, bidder);
             }
             catch (Exception ex) {
@@ -70,7 +74,8 @@ namespace AuctionUtility.Controllers
         public ActionResult GetAll()
         {
             try {
-                List<Bidder> bidders = this._db.Bidders.ToList();
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                List<Bidder> bidders = this._db.Bidders.Where(bidder => bidder.auctionYear.Equals(preferences.selectedYear)).ToList();
                 return StatusCode(200, bidders);
             }
             catch (Exception ex) {
@@ -83,7 +88,8 @@ namespace AuctionUtility.Controllers
         public ActionResult DeleteSingle(int bidderNumber)
         {
             try {
-                Bidder? bidder = this._db.Bidders.Find(bidderNumber);
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                Bidder? bidder = this._db.Bidders.FirstOrDefault(bidder => bidder.number == bidderNumber && bidder.auctionYear.Equals(preferences.selectedYear));
 
                 if(bidder == null) {
                     return StatusCode(404, "Could not find a bidder with the number " + bidderNumber);
@@ -107,7 +113,8 @@ namespace AuctionUtility.Controllers
             }
 
             try {
-                List<Bidder> bidders = this._db.Bidders.ToList();
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                List<Bidder> bidders = this._db.Bidders.Where(bidder => bidder.auctionYear.Equals(preferences.selectedYear)).ToList();
 
                 foreach(Bidder bidder in bidders) 
                 {

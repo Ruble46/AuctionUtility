@@ -39,10 +39,13 @@ namespace AuctionUtility.Controllers
         public ActionResult Add(Lot lot)
         {
             if(lot == null) {
-                return StatusCode(400, "Bidder is null");
+                return StatusCode(400, "Lot is null");
             }
             
             try {
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                lot.auctionYear = preferences.selectedYear;
+
                 this._db.Lots.Add(lot);
                 this._db.SaveChanges();
                 return StatusCode(200, "Lot " + lot.lotNumber + " added");
@@ -57,7 +60,9 @@ namespace AuctionUtility.Controllers
         public ActionResult GetSingle(int lotNumber)
         {
             try {
-                Lot? lot = this._db.Lots.Find(lotNumber);
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+
+                Lot? lot = this._db.Lots.FirstOrDefault(lot => lot.lotNumber == lotNumber && lot.auctionYear.Equals(preferences.selectedYear));
                 return StatusCode(200, lot);
             }
             catch (Exception ex) {
@@ -70,7 +75,9 @@ namespace AuctionUtility.Controllers
         public ActionResult GetAll()
         {
             try {
-                List<Lot> lots = this._db.Lots.ToList();
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+
+                List<Lot> lots = this._db.Lots.Where(lot => lot.auctionYear.Equals(preferences.selectedYear)).ToList();
                 return StatusCode(200, lots);
             }
             catch (Exception ex) {
@@ -83,7 +90,9 @@ namespace AuctionUtility.Controllers
         public ActionResult DeleteSingle(int lotNumber)
         {
             try {
-                Lot? lot = this._db.Lots.Find(lotNumber);
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+
+                Lot? lot = this._db.Lots.FirstOrDefault(lot => lot.lotNumber == lotNumber && lot.auctionYear.Equals(preferences.selectedYear));
 
                 if(lot == null) {
                     return StatusCode(404, "Could not find a lot with the number " + lotNumber);
@@ -107,7 +116,8 @@ namespace AuctionUtility.Controllers
             }
 
             try {
-                List<Lot> lots = this._db.Lots.ToList();
+                Preferences? preferences = this._db.Preferences.ToList()[0];
+                List<Lot> lots = this._db.Lots.Where(lot => lot.auctionYear.Equals(preferences.selectedYear)).ToList();
 
                 foreach(Lot lot in lots) 
                 {
