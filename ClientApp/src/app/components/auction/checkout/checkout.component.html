@@ -40,7 +40,7 @@
                             <div class="checkoutActionContainer">
                                 <button mat-raised-button color="primary" class="checkoutBtn"
                                     (click)="checkoutBidder(checkout)"
-                                    *ngIf="!checkout.bidder.hasPaid">Checkout</button>
+                                    *ngIf="!checkout.bidder.hasPaid">Checkout #{{checkout.bidder.number}}</button>
                                 <button mat-stroked-button color="primary" (click)="viewCheckout(checkout)"
                                     *ngIf="checkout.bidder.hasPaid">View</button>
                                 <button mat-stroked-button color="warn" (click)="undoCheckout(checkout)"

@@ -57,17 +57,8 @@ export class BiddersComponent implements OnInit {
 
         this.bidders.sort((a, b) => (a.number > b.number) ? 1 : -1);
 
-        if(this.bidders.length != last) { //Missing bidder numbers in sequence
-            for(let i = 0; i < this.bidders.length; i++) {
-                if(this.bidders[i].number != i + 1) {
-                    return i + 1;
-                }
-            }
-        } else { //No missing bidder numbers in sequence
-            return this.bidders[this.bidders.length - 1].number + 1;
-        }
-
-        return 0;
+        //Want to skip any missed numbers (people not returning their laminated number)
+        return this.bidders[this.bidders.length - 1].number + 1;
     }
 
     addBidder() {

@@ -5,47 +5,47 @@
 
     <mat-progress-bar *ngIf="requestCount > 0" mode="indeterminate"></mat-progress-bar>
 
-    <mat-toolbar class="columnHeader">
-        <button mat-raised-button (click)="addLot()" color="primary" style="width: 100%">
+    <div style="max-width: 1080px; margin: 0 auto; overflow: auto; height: calc(100% - 8px); margin-bottom: 8px">
+        <button mat-raised-button (click)="addLot()" color="primary" style="width: 100%; margin: 16px 0">
             <mat-icon>add</mat-icon>
             Add Lot
         </button>
-    </mat-toolbar>
-
-    <div class="lotsTableWrapper" #scrollToMeLots>
-        <table mat-table [dataSource]="dataSourceLots" class="biddersTable whiteBackground">
-            <!-- Lot Number Column -->
-            <ng-container matColumnDef="lotNumber">
-                <th mat-header-cell *matHeaderCellDef> Lot </th>
-                <td mat-cell *matCellDef="let lot"> #{{lot.lotNumber}} </td>
-            </ng-container>
-
-            <!-- Count Column -->
-            <ng-container matColumnDef="itemsCount">
-                <th mat-header-cell *matHeaderCellDef> Count </th>
-                <td mat-cell *matCellDef="let lot"> {{lot.items.length}} </td>
-            </ng-container>
-
-            <!-- Items Column -->
-            <ng-container matColumnDef="items">
-                <th mat-header-cell *matHeaderCellDef> Items </th>
-                <td mat-cell *matCellDef="let lot" class="itemsCell">
-                    <mat-chip-list aria-label="Item selection" [selectable]="false">
-                        <mat-chip *ngFor="let item of lot.items" disableRipple>{{item}}</mat-chip>
-                    </mat-chip-list>
-                </td>
-            </ng-container>
-
-            <!-- Actions Description Column -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let lot; let i = index" class="editColumn">
-                    <button mat-stroked-button color="primary">Edit</button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="whiteBackground"></tr>
-            <tr mat-row *matRowDef="let lot; columns: displayedColumns;" (click)="editLot(lot)"></tr>
-        </table>
+    
+        <div class="lotsTableWrapper" #scrollToMeLots>
+            <table mat-table [dataSource]="dataSourceLots" class="biddersTable whiteBackground">
+                <!-- Lot Number Column -->
+                <ng-container matColumnDef="lotNumber">
+                    <th mat-header-cell *matHeaderCellDef> Lot </th>
+                    <td mat-cell *matCellDef="let lot"> #{{lot.lotNumber}} </td>
+                </ng-container>
+    
+                <!-- Count Column -->
+                <ng-container matColumnDef="itemsCount">
+                    <th mat-header-cell *matHeaderCellDef> Count </th>
+                    <td mat-cell *matCellDef="let lot"> {{lot.items.length}} </td>
+                </ng-container>
+    
+                <!-- Items Column -->
+                <ng-container matColumnDef="items">
+                    <th mat-header-cell *matHeaderCellDef> Items </th>
+                    <td mat-cell *matCellDef="let lot" class="itemsCell">
+                        <mat-chip-list aria-label="Item selection" [selectable]="false">
+                            <mat-chip *ngFor="let item of lot.items" disableRipple>{{item}}</mat-chip>
+                        </mat-chip-list>
+                    </td>
+                </ng-container>
+    
+                <!-- Actions Description Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let lot; let i = index" class="editColumn">
+                        <button mat-stroked-button color="primary">Edit</button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background-color: #f1f1f1;"></tr>
+                <tr mat-row *matRowDef="let lot; columns: displayedColumns;" (click)="editLot(lot)"></tr>
+            </table>
+        </div>
     </div>
 </div>

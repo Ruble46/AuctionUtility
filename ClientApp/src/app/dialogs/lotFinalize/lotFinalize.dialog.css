@@ -24,3 +24,8 @@
     background-color: white;
     display: flex;
 }
+
+.itemsTextArea {
+    min-height: 75px;
+    resize: none;
+}

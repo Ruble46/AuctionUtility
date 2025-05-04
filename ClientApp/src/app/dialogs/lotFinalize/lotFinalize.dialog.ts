@@ -17,6 +17,7 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
     public data: Lot;
     private bidders: Array<Bidder>;
     public bidderName: string;
+    public itemString: string = "";
 
     constructor(public dialogRef: MatDialogRef<LotFinalizeDialog>, 
             @Inject(MAT_DIALOG_DATA) public dataIncoming: Lot, 
@@ -28,6 +29,14 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
         this.data = JSON.parse(JSON.stringify(dataIncoming));
         this.bidders = new Array<Bidder>();
         this.bidderName = "";
+        
+        for(let i = 0; i < this.data.items.length; i++)  {
+            this.itemString += this.data.items[i];
+            
+            if(i != this.data.items.length - 1) {
+                this.itemString += ", ";
+            }
+        }
     }
 
     ngOnInit() {
@@ -89,6 +98,7 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
             if(result !== undefined) {
                 this.data.buyerNumber = undefined;
                 this.data.finalBid = undefined;
+                this.itemString = "";
                 
                 this.lotsService.Edit(this.data).subscribe(result => {
                     this.sbh.openSnackBar(result.body, "Dismiss", 3000);
