@@ -19,6 +19,8 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
 
     public DbSet<Preferences> Preferences => Set<Preferences>();
 
+    public DbSet<Donation> Donations => Set<Donation>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -48,6 +50,13 @@ public class SimpleDataStorage: IdentityDbContext<AppUser, AppRole, string>
             b.HasKey(b => b.id);
             b.Property(b => b.selectedYear);
             b.ToTable("Preferences");
+        });
+
+        modelBuilder.Entity<Donation>(d => {
+            d.HasKey(e => e.id);
+            d.Property(e => e.amount);
+            d.Property(e => e.auctionYear);
+            d.ToTable("Donations");
         });
     }
 }

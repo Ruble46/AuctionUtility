@@ -16,6 +16,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { LotsComponent } from './components/auction/lots/lots.component';
 import { BiddersComponent } from './components/auction/bidders/bidders.component';
+import { DonationsComponent } from './components/auction/donations/donations.component';
 import { FinalizeComponent } from './components/auction/finalize/finalize.component';
 import { CheckoutComponent } from './components/auction/checkout/checkout.component';
 
@@ -25,9 +26,10 @@ import { PreferencesComponent } from './components/utility/preferences/preferenc
 import { YearlyReportComponent } from './components/reports/yearly/yearly.component';
 import { ComparisonReportComponent } from './components/reports/comparison/comparison.component';
 
-//========================= Dailogs =========================
+//========================= Dialogs =========================
 import { BidderAddEditDialog } from './dialogs/BidderAddEdit/BidderAddEdit.dialog';
 import { LotAddEditDialog } from './dialogs/lotAddEdit/lotAddEdit.dialog';
+import { DonationsAddEditDialog } from './dialogs/DonationsAddEdit/DonationsAddEdit.dialog';
 import { LotFinalizeDialog } from './dialogs/lotFinalize/lotFinalize.dialog';
 import { CheckoutDialog } from './dialogs/checkout/checkout.dialog';
 import { ConfirmationDialog } from './dialogs/confirmation/confirmation.dialog';
@@ -44,6 +46,7 @@ import { SessionService } from './services/sessionService';
 import { BiddersService } from './services/biddersService';
 import { LotsService } from './services/lotsService';
 import { PreferencesService } from './services/preferencesService';
+import { DonationsService } from './services/donationsService';
 
 //========================= Material =========================
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -84,6 +87,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     DashboardComponent,
     LotsComponent,
     BiddersComponent,
+    DonationsComponent,
     FinalizeComponent,
     CheckoutComponent,
     ToolsComponent,
@@ -92,6 +96,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ComparisonReportComponent,
     BidderAddEditDialog,
     LotAddEditDialog,
+    DonationsAddEditDialog,
     LotFinalizeDialog,
     CheckoutDialog,
     ConfirmationDialog,
@@ -146,6 +151,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 
         { path: 'lots', component: LotsComponent },
         { path: 'bidders', component: BiddersComponent },
+        { path: 'donations', component: DonationsComponent },
         { path: 'finalize', component: FinalizeComponent },
         { path: 'checkout', component: CheckoutComponent },
         
@@ -158,10 +164,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
       { path: '**', redirectTo: 'app' }
     ], { useHash: true }),
   ],
-  providers: [cookies, Guid, ScreenSize, SnackBarHelper, SessionService, BiddersService, LotsService, PreferencesService],
+  providers: [cookies, Guid, ScreenSize, SnackBarHelper, SessionService, BiddersService, LotsService, PreferencesService, DonationsService],
   entryComponents: [
     BidderAddEditDialog,
     LotAddEditDialog,
+    DonationsAddEditDialog,
     LotFinalizeDialog,
     CheckoutDialog,
     ConfirmationDialog,

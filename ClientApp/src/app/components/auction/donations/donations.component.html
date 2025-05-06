@@ -1,0 +1,35 @@
+<div class="donationsContentWrapper">
+    <mat-toolbar color="accent">
+        Cash Donations
+    </mat-toolbar>
+
+    <mat-progress-bar *ngIf="requestCount > 0" mode="indeterminate"></mat-progress-bar>
+
+    <div style="max-width: 720px; margin: 0 auto; overflow: auto; height: calc(100% - 8px); margin-bottom: 8px">
+        <button mat-flat-button (click)="addDonation()" color="primary" style="width: 100%; margin: 16px 0">
+            <mat-icon>add</mat-icon>
+            Add Donation
+        </button>
+        
+        <div class="donationsTableWrapper">
+            <table mat-table [dataSource]="dataSourceDonations" class="donationsTable whiteBackground">        
+                <!-- Amount Column -->
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef> Amount </th>
+                    <td mat-cell *matCellDef="let donation"> {{donation.amount | currency}} </td>
+                </ng-container>
+        
+                <!-- Edit Button Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let bidder; let i = index" class="editColumn">
+                        <button mat-stroked-button color="primary">Edit</button>
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background-color: #f1f1f1;"></tr>
+                <tr mat-row *matRowDef="let donation; columns: displayedColumns;" (click)="editDonation(donation)"></tr>
+            </table>
+        </div>
+    </div>
+</div>

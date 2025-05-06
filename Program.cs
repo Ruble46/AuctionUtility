@@ -1,13 +1,14 @@
 using AuctionUtility;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 using (var client = new SimpleDataStorage())
 {
-    client.Database.EnsureCreated();
-    //client.Database.Migrate();
+    //client.Database.EnsureCreated();
+    client.Database.Migrate();
 }
 
 builder.Services.AddControllersWithViews();

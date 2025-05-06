@@ -32,6 +32,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.checkouts = new Array<Checkout>();
     this.RetrieveData();
   }
 
@@ -92,7 +93,6 @@ export class CheckoutComponent implements OnInit {
         this.checkouts.push(tempCheckout);
 
         if(tempCheckout.total > this.highestCheckout.total) {
-            console.log(tempCheckout);
             this.highestCheckout = tempCheckout;
         }
       } else {

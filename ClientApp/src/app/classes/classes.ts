@@ -21,6 +21,16 @@ export class Lot {
     auctionYear: number;
 }
 
+export class Donation {
+    constructor() {
+
+    }
+
+    id: string;
+    amount: number;
+    auctionYear: number;
+}
+
 export class Preference {
     constructor() {
         this.selectedYear = 0;
@@ -61,6 +71,16 @@ export class BidderDialogData {
 
     mode: DialogMode;
     data: Bidder;
+}
+
+export class DonationsDialogData {
+    constructor(mode: DialogMode, data: Donation) {
+        this.mode = mode;
+        this.data = data;
+    }
+
+    mode: DialogMode;
+    data: Donation;
 }
 
 export class DialogMode {

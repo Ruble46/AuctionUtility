@@ -39,9 +39,14 @@
     flex: 1 1 auto;
 }
 
-.finalizeContentWrapper {
+.donationsContentWrapper {
     overflow-y: hidden;
     height: 100vh;
+}
+
+.donationsTableWrapper {
+    overflow-y: auto;
+    height: calc(100% - 128px);
 }
 
 .columnHeader {
@@ -52,7 +57,7 @@
     width: 100%;
 }
 
-.biddersTable {
+.donationsTable {
     width: 100%;
 }
 

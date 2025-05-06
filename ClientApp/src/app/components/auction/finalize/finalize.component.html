@@ -5,7 +5,7 @@
 
     <mat-progress-bar *ngIf="requestCount > 0" mode="indeterminate"></mat-progress-bar>
 
-    <div class="finalizeTableWrapper">
+    <div style="max-width: 1350px; margin: 0 auto; overflow: auto; height: calc(100% - 64px); margin-bottom: 8px">
         <table mat-table [dataSource]="dataSourceLots" class="biddersTable whiteBackground">
             <!-- Lot Number Column -->
             <ng-container matColumnDef="lotNumber">

@@ -39,14 +39,9 @@
     width: 100%;
 }
 
-.checkoutContentWraper {
+.checkoutContentWrapper {
     overflow-y: hidden;
     height: 100vh;
-}
-
-.checkoutTableWrapper {
-    overflow-y: auto;
-    height: 100%;
 }
 
 .checkoutInfoPanel {

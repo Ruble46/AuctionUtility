@@ -241,3 +241,5 @@ ClientApp/.angular/
 db.sqlite-shm
 
 db.sqlite-wal
+
+*.sqlite

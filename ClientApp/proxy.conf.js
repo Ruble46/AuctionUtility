@@ -9,6 +9,7 @@ const PROXY_CONFIG = [
       "/session",
       "/lots",
       "/bidders",
+      "/donations",
       "/preferences"
    ],
     target: target,
