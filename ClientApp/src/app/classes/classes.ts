@@ -97,3 +97,19 @@ export class User {
     email: string;
     password: string;
 }
+
+export enum FinalizeStepChoice {
+    None,
+    Previous,
+    Next
+}
+
+export class FinalizeDialogResponse {
+    constructor(choice: FinalizeStepChoice, lot: Lot) {
+        this.choice = choice;
+        this.lot = lot;
+    }
+
+    choice: FinalizeStepChoice;
+    lot: Lot;
+}

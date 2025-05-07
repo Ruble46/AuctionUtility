@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Lot, Bidder } from '../../../classes/classes';
+import { Lot, Bidder, FinalizeDialogResponse, FinalizeStepChoice } from '../../../classes/classes';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { BiddersService } from 'src/app/services/biddersService';
 import { LotsService } from 'src/app/services/lotsService';
@@ -96,18 +96,20 @@ export class FinalizeComponent implements OnInit {
         //result will be undefined for close or cancel
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
-                this.requestCount++;
-                this.lotsService.GetAll().subscribe(result => {
-                    this.lots = result.body;
-                    this.dataSourceLots = new MatTableDataSource(this.lots);
-                    this.requestCount--;
-                }, error => {
-                    this.lots = new Array();
-                    this.dataSourceLots = new MatTableDataSource(this.lots);
-                    this.sbh.openSnackBar("Failed to retrieve lots from the server", "Dismiss", 3000);
-                    console.error(error);
-                    this.requestCount--;
-                });
+                let savedData = result as FinalizeDialogResponse;
+                let indexOfEntry = this.lots.findIndex(lot => lot.lotNumber == savedData.lot.lotNumber);
+                this.lots[indexOfEntry] = savedData.lot;
+                this.dataSourceLots = new MatTableDataSource(this.lots);
+
+                if(savedData.choice == FinalizeStepChoice.Next) {
+                    if(indexOfEntry < this.lots.length - 1) {
+                        this.finalizeLot(this.lots[indexOfEntry + 1]);
+                    }
+                } else if(savedData.choice == FinalizeStepChoice.Previous) {
+                    if(indexOfEntry > 0) {
+                        this.finalizeLot(this.lots[indexOfEntry - 1]);
+                    }
+                }
             }
         });
     }

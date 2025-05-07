@@ -1,4 +1,4 @@
-import { Lot, Bidder } from '../../classes/classes';
+import { Lot, Bidder, FinalizeDialogResponse, FinalizeStepChoice } from '../../classes/classes';
 import { Component, Inject, ViewChild, OnInit, ElementRef, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { SnackBarHelper } from '../../helpers/snackBar';
@@ -14,8 +14,9 @@ import { ConfirmationDialog } from '../confirmation/confirmation.dialog';
 export class LotFinalizeDialog implements OnInit, AfterViewInit {
 
     @ViewChild('autoFocus', {static: false}) private autoFocus: ElementRef;
+    @ViewChild('autoFocusAfterQuick', {static: false}) private autoFocusAfterQuick: ElementRef;
     public data: Lot;
-    private bidders: Array<Bidder>;
+    public bidders: Array<Bidder>;
     public bidderName: string;
     public itemString: string = "";
 
@@ -61,24 +62,66 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
         this.dialogRef.close();
     }
 
-    //Form submission function
-    submitData() {
+    validateBidderNum(): boolean {
         let result = this.bidders.find(bidder => {
             return bidder.number == this.data.buyerNumber;
         });
 
         if(result == null || result == undefined) {
             this.sbh.openSnackBar("Invalid bidder number.", "Dismiss", 3000);
+            return false;
+        }
+
+        return true
+    }
+
+    //Form submission function
+    submitData() {
+        if(!this.validateBidderNum()) {
             return;
         }
 
         this.lotsService.Edit(this.data).subscribe(result => {
             this.sbh.openSnackBar(result.body, "Dismiss", 3000);
-            this.dialogRef.close("edit");
+            this.dialogRef.close(new FinalizeDialogResponse(FinalizeStepChoice.None, this.data));
         }, error => {
             this.sbh.openSnackBar("Failed to edit lot #" + this.data.lotNumber, "Dismiss", 3000);
             console.error(error);
         });
+    }
+
+    submitAndPrev() {
+        if(!this.validateBidderNum()) {
+            return;
+        }
+
+        this.lotsService.Edit(this.data).subscribe(result => {
+            this.sbh.openSnackBar(result.body, "Dismiss", 3000);
+            this.dialogRef.close(new FinalizeDialogResponse(FinalizeStepChoice.Previous, this.data));
+        }, error => {
+            this.sbh.openSnackBar("Failed to edit lot #" + this.data.lotNumber, "Dismiss", 3000);
+            console.error(error);
+        });
+    }
+
+    submitAndNext() {
+        if(!this.validateBidderNum()) {
+            return;
+        }
+
+        this.lotsService.Edit(this.data).subscribe(result => {
+            this.sbh.openSnackBar(result.body, "Dismiss", 3000);
+            this.dialogRef.close(new FinalizeDialogResponse(FinalizeStepChoice.Next, this.data));
+        }, error => {
+            this.sbh.openSnackBar("Failed to edit lot #" + this.data.lotNumber, "Dismiss", 3000);
+            console.error(error);
+        });
+    }
+
+    quickSelectBidder(bidder: Bidder) {
+        this.data.buyerNumber = bidder.number;
+        this.buyerNumberChanged();
+        this.autoFocusAfterQuick.nativeElement.focus();
     }
 
     buyerNumberChanged() {
@@ -102,7 +145,7 @@ export class LotFinalizeDialog implements OnInit, AfterViewInit {
                 
                 this.lotsService.Edit(this.data).subscribe(result => {
                     this.sbh.openSnackBar(result.body, "Dismiss", 3000);
-                    this.dialogRef.close("edit");
+                    this.dialogRef.close(new FinalizeDialogResponse(FinalizeStepChoice.None, this.data));
                 }, error => {
                     this.sbh.openSnackBar("Failed to clear data", "Dismiss", 3000);
                     console.error(error);

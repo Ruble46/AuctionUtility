@@ -1,35 +1,64 @@
-<form (submit)="submitData()" #addLot="ngForm" name="form">
+<form #addLot="ngForm" name="form">
 	<mat-toolbar class="dialogHeaderToolbar">
 		<span class="dialogTitle">Finalize Lot #{{data.lotNumber}}</span>
 	</mat-toolbar>
+
+    <mat-divider class="addBottomMargin"></mat-divider>
+
     <div mat-dialog-content>
-		<mat-divider class="addBottomMargin"></mat-divider>
+		<div style="display: flex; flex-direction: row;">
+            <div style="min-width: 75px; max-width: 212px; max-height: 50vh; overflow-y: auto">
+                <div style="font-size: 12px; color: rgba(0, 0, 0, 0.6);">Bidder Num Quick Select</div>
+                <button mat-stroked-button *ngFor="let bidder of bidders" (click)="quickSelectBidder(bidder)">#{{bidder.number}}</button>
+            </div>
 
-		<!-- Bidder Number -->
-        <mat-form-field appearance="outline" class="fullWidth">
-            <mat-label>Bidder Number</mat-label>
-            <input matInput #autoFocus type="number" placeholder="Bidder Number" (input)="buyerNumberChanged()" [(ngModel)]="data.buyerNumber" [ngModelOptions]="{standalone: true}">
-            <mat-hint>Bidder: {{bidderName}}</mat-hint>
-        </mat-form-field>
-                
-		<!-- Final Price -->
-		<mat-form-field appearance="outline" class="fullWidth addMarginTop">
-            <mat-label>Final Bid</mat-label>
-            <input matInput type="number" min="0.01" step="0.01" placeholder="Final Bid" [(ngModel)]="data.finalBid" [ngModelOptions]="{standalone: true}">
-		</mat-form-field>
+            <mat-divider [vertical]="true"></mat-divider>
 
-        <mat-form-field appearance="outline" class="fullWidth addMarginTop">
-            <mat-label>Items</mat-label>
-            <textarea matInput type="text" class="itemsTextArea" placeholder="Items" [(ngModel)]="itemString" [ngModelOptions]="{standalone: true}" readonly></textarea>
-		</mat-form-field>
+            <div style="margin-left: 24px">
+                <!-- Bidder Number -->
+                <mat-form-field appearance="outline" class="fullWidth">
+                    <mat-label>Bidder Number</mat-label>
+                    <input matInput #autoFocus type="number" placeholder="Bidder Number" (input)="buyerNumberChanged()" [(ngModel)]="data.buyerNumber" [ngModelOptions]="{standalone: true}">
+                    <mat-hint>Name: {{bidderName}}</mat-hint>
+                </mat-form-field>
+                        
+                <!-- Final Price -->
+                <mat-form-field appearance="outline" class="fullWidth addMarginTop">
+                    <mat-label>Final Bid</mat-label>
+                    <input matInput #autoFocusAfterQuick type="number" min="0.01" step="0.01" placeholder="Final Bid" [(ngModel)]="data.finalBid" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
 
-        <button mat-stroked-button class="addBottomMargin" color="warn" (mousedown)="clearData()">Clear data</button>
+                <mat-form-field appearance="outline" class="fullWidth addMarginTop">
+                    <mat-label>Items</mat-label>
+                    <textarea matInput type="text" class="itemsTextArea" placeholder="Items" [(ngModel)]="itemString" [ngModelOptions]="{standalone: true}" readonly></textarea>
+                </mat-form-field>
+
+                <button mat-stroked-button class="addBottomMargin" color="warn" (mousedown)="clearData()">Clear data</button>
+            </div>
+        </div>
     </div>
     
     <mat-divider></mat-divider>
   
-    <div mat-dialog-actions>
-		<button mat-button color="accent" (mousedown)="onNoClick()">Cancel</button>
-		<button mat-raised-button color="primary" type="submit">Save</button>
+    <div mat-dialog-actions style="justify-content: space-between;">
+		<span>
+            <button mat-button color="accent" (click)="onNoClick()">Cancel</button>
+        </span>
+
+		<span>
+            <button mat-raised-button color="accent" (click)="submitAndPrev()">
+                <mat-icon>chevron_left</mat-icon>
+                Save & Prev
+            </button>
+
+		    <button mat-raised-button color="primary" (click)="submitData()">Save</button>
+            
+		    <button mat-raised-button color="accent" (click)="submitAndNext()">
+                Save & Next
+                <mat-icon>
+                    chevron_right
+                </mat-icon>
+            </button>
+        </span>
     </div>
   </form>
